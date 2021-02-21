@@ -297,10 +297,11 @@ For training with lyrics, we'll use `small_single_enc_dec_prior` in `hparams.py`
   and in v3 we missed `+` and so `n_vocab=79` of characters. 
 - 歌詞 
   - 各ファイルについて、歌詞の文字を音声に合わせて直線的に配置し、歌詞の中で をオーディオチャンクの中点に設定し、そこを中心とした `n_tokens` のリリック文字のウィンドウを渡す。
-  - small_single_enc_dec_prior` で、`use_tokens=True` と `n_tokens` にオーディオチャンクに使用するリリック文字の数を設定する。これを `sample_length` に合わせて設定することで、音声チャンクの歌詞がほとんどの場合、そのサイズのウィンドウ内に収まるようになります。
+  - `small_single_enc_dec_prior` で、`use_tokens=True` と `n_tokens` にオーディオチャンクに使用するリリック文字の数を設定する。これを `sample_length` に合わせて設定することで、音声チャンクの歌詞がほとんどの場合、そのサイズのウィンドウ内に収まるようになります。
   - 英語以外の語彙を使う場合は、`text_processor.py` を新しい語彙で更新し、`small_single_enc_dec_prior` で `n_vocab = 語彙の文字数` を適宜設定してください。v2では `n_vocab=80` としていました。v3では `+` を見落としていたため、`n_vocab=79` の文字が出てきてしまいました。
 
-After these modifications, to train a top-level with labels and lyrics, run
+After these modifications, to train a top-level with labels and lyrics, run<br>
+これらの修正の後、ラベルと歌詞でトップレベルをトレーニングするには、以下のように実行します。
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=vqvae,small_single_enc_dec_prior,all_fp16,cpu_ema --name=pretrained_vqvae_small_single_enc_dec_prior_labels \
 --sample_length=786432 --bs=4 --aug_shift --aug_blend --audio_files_dir={audio_files_dir} \
@@ -310,31 +311,43 @@ To simplify hps choices, here we used a `single_enc_dec` model like the `1b_lyri
 decoder of the transformer into a single model. We do so by merging the lyric vocab and vq-vae vocab into a single 
 larger vocab, and flattening the lyric tokens and the vq-vae codes into a single sequence of length `n_ctx + n_tokens`. 
 This uses `attn_order=12` which includes `prime_attention` layers with keys/values from lyrics and queries from audio. 
-If you instead want to use a model with the usual encoder-decoder style transformer, use `small_sep_enc_dec_prior`.
+If you instead want to use a model with the usual encoder-decoder style transformer, use `small_sep_enc_dec_prior`.<br>
+hpsの選択を簡単にするために、ここでは `1b_lyrics` モデルのような `single_enc_dec` モデルを使用しています。これは、歌詞ボキャブラとvq-vaeボキャブラを単一の より大きなボキャブを使用し、歌詞トークンとvq-vaeコードを平坦化して、長さ `n_ctx + n_tokens` の単一のシーケンスにします。
+これは `attn_order=12` を利用しており、`prime_attention` レイヤには歌詞のキー/値と音声のクエリが含まれています。
+代わりに通常のエンコーダー・デコーダー形式の変換器を用いたい場合は、`small_sep_enc_dec_prior` を用います。
 
 For sampling, follow same instructions as [above](#sample-from-new-model) but use `small_single_enc_dec_prior` instead of 
 `small_prior`. To also get the alignment between lyrics and samples in the saved html, you'll need to set `alignment_layer` 
 and `alignment_head` in `small_single_enc_dec_prior`. To find which layer/head is best to use, run a forward pass on a training example,
 save the attention weight tensors for all prime_attention layers, and pick the (layer, head) which has the best linear alignment 
-pattern between the lyrics keys and music queries. 
+pattern between the lyrics keys and music queries. <br>
+サンプリングの方法は、[上記](#sample-from-new-model)と同じですが、`small_prior` の代わりに `small_single_enc_dec_prior` を使います。
+また、保存したhtmlの歌詞とサンプルの位置合わせを行うには、`small_single_enc_dec_prior`で `alignment_layer` と `alignment_head` を設定する必要があります。
+どのレイヤー/ヘッドを使うのが最適かを知るためには、学習例に対してフォワードパスを実行してみてください。すべての prime_attention レイヤーの注目度テンソルを保存し、最も直線的なアライメントを持つ (layer, head) を選択します。歌詞のキーと音楽のクエリの間のパターン。
 
 ### Fine-tune pre-trained top-level prior to new style(s)
-Previously, we showed how to train a small top-level prior from scratch. Assuming you have a GPU with at least 15 GB of memory and support for fp16, you could fine-tune from our pre-trained 1B top-level prior. Here are the steps:
+Previously, we showed how to train a small top-level prior from scratch. Assuming you have a GPU with at least 15 GB of memory and support for fp16, you could fine-tune from our pre-trained 1B top-level prior. Here are the steps:<br>
+前回までに、小さなトップレベルの先行技術をスクラッチからトレーニングする方法を紹介しました。少なくとも15GB以上のメモリとFP16をサポートするGPUを持っていると仮定すると、事前に訓練された1Bトップレベルの先行技術を使って微調整することができます。以下に手順を示します。
 
 - Support `--labels=True` by implementing `get_metadata` in `jukebox/data/files_dataset.py` for your dataset.
 - Add new entries in `jukebox/data/ids`. We recommend replacing existing mappings (e.g. rename `"unknown"`, etc with styles of your choice). This uses the pre-trained style vectors as initialization and could potentially save some compute.
+- `jukebox/data/files_dataset.py` で `get_metadata` を実装することで `--labels=True` をサポートします。
+- jukebox/data/idに新しいエントリを追加します。既存のマッピングを置き換えることを推奨します (例: `"unknown"` などの名前を任意のスタイルに変更する)。これは、事前に学習されたスタイルベクトルを初期化に使用し、計算量を節約できる可能性があります。
 
-After these modifications, run 
+After these modifications, run <br>
+これらの修正を行った後、次のように実行します。
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=vqvae,prior_1b_lyrics,all_fp16,cpu_ema --name=finetuned \
 --sample_length=1048576 --bs=1 --aug_shift --aug_blend --audio_files_dir={audio_files_dir} \
 --labels=True --train --test --prior --levels=3 --level=2 --weight_decay=0.01 --save_iters=1000
 ```
-To get the best sample quality, it is recommended to anneal the learning rate in the end. Training the 5B top-level requires GPipe which is not supported in this release.
+To get the best sample quality, it is recommended to anneal the learning rate in the end. Training the 5B top-level requires GPipe which is not supported in this release.<br>
+最高のサンプル品質を得るためには、最終的に学習率をアニーリングすることをお勧めします。5Bのトップレベルの学習にはGPipeが必要ですが、このリリースではサポートされていません。
 
-# Citation
+# Citation(引用)
 
-Please cite using the following bibtex entry:
+Please cite using the following bibtex entry:<br>
+以下のbibtexエントリーを参考にして引用してください：
 
 ```
 @article{dhariwal2020jukebox,
@@ -348,5 +361,6 @@ Please cite using the following bibtex entry:
 # License 
 [Noncommercial Use License](./LICENSE) 
 
-It covers both released code and weights. 
+It covers both released code and weights. <br>
+リリースされたコードとウェイトの両方をカバーしています。
 
