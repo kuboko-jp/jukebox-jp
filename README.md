@@ -1,4 +1,4 @@
-**Status:** Archive (code is provided as-is, no updates expected)
+**Status:** Archive (code is provided as-is, no updates expected)<br>
 **ステータス** アーカイブ (コードはそのまま提供されています。更新は期待されていません)
 
 
@@ -11,7 +11,9 @@ Code for "Jukebox: A Generative Model for Music"
 [Colab](https://colab.research.google.com/github/openai/jukebox/blob/master/jukebox/Interacting_with_Jukebox.ipynb) 
 
 # Install
-Install the conda package manager from https://docs.conda.io/en/latest/miniconda.html    
+Install the conda package manager from https://docs.conda.io/en/latest/miniconda.html <br> 
+conda パッケージマネージャを https://docs.conda.io/en/latest/miniconda.html からインストールします。   
+
     
 ``` 
 # Required: Sampling
