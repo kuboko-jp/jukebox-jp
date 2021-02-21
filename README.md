@@ -47,47 +47,67 @@ python jukebox/sample.py --model=1b_lyrics --name=sample_1b --levels=3 --sample_
 --total_sample_length_in_seconds=180 --sr=44100 --n_samples=16 --hop_fraction=0.5,0.5,0.125
 ```
 The above generates the first `sample_length_in_seconds` seconds of audio from a song of total length `total_sample_length_in_seconds`.
-To use multiple GPU's, launch the above scripts as `mpiexec -n {ngpus} python jukebox/sample.py ...` so they use `{ngpus}`
+To use multiple GPU's, launch the above scripts as `mpiexec -n {ngpus} python jukebox/sample.py ...` so they use `{ngpus}`<br>
+上記は、全長 `total_sample_length_in_seconds` の曲から最初の `sample_length_in_seconds` 秒の音声を生成します。
+複数のGPUを利用するには、`mpiexec -n {ngpus} python jukebox/sample.py ...`として上記のスクリプトを起動すると、`{ngpus}`を利用するようになります。
 
 The samples decoded from each level are stored in `{name}/level_{level}`. 
 You can also view the samples as an html with the aligned lyrics under `{name}/level_{level}/index.html`. 
 Run `python -m http.server` and open the html through the server to see the lyrics animate as the song plays.  
-A summary of all sampling data including zs, x, labels and sampling_kwargs is stored in `{name}/level_{level}/data.pth.tar`.
+A summary of all sampling data including zs, x, labels and sampling_kwargs is stored in `{name}/level_{level}/data.pth.tar`.<br>
+各レベルからデコードされたサンプルは `{name}/level_{level}` に格納されます。
+また、`{name}/level_{level}/index.html`の下に歌詞を並べてhtmlとして表示することもできます。
+python -m http.server`を実行して、サーバからhtmlを開くと、曲の再生に合わせて歌詞がアニメーションで表示されます。 
+zs, x, labels, sampling_kwargsを含むすべてのサンプリングデータの要約は、`{name}/level_{level}/data.pth.tar`に格納されています。
 
 The hps are for a V100 GPU with 16 GB GPU memory. The `1b_lyrics`, `5b`, and `5b_lyrics` top-level priors take up 
 3.8 GB, 10.3 GB, and 11.5 GB, respectively. The peak memory usage to store transformer key, value cache is about 400 MB 
 for `1b_lyrics` and 1 GB for `5b_lyrics` per sample. If you are having trouble with CUDA OOM issues, try `1b_lyrics` or 
-decrease `max_batch_size` in sample.py, and `--n_samples` in the script call.
+decrease `max_batch_size` in sample.py, and `--n_samples` in the script call.<br>
+hpsは16GBのGPUメモリを搭載したV100 GPUのものです。1b_lyrics`, `5b`, `5b_lyrics` のトップレベルプリオールは 
+それぞれ3.8GB、10.3GB、11.5GBである。トランスフォーマーのキー、値キャッシュを格納するためのメモリ使用量のピークは約400MBです。
+1サンプルあたり、`1b_lyrics`で1GB、`5b_lyrics`で1GBです。CUDA OOM の問題で困っている場合は、`1b_lyrics` や `5b_lyrics` を試してみてください。
+sample.pyの`max_batch_size`とスクリプトコールの`--n_samples`を減少させます。
 
-On a V100, it takes about 3 hrs to fully sample 20 seconds of music. Since this is a long time, it is recommended to use `n_samples > 1` so you can generate as many samples as possible in parallel. The 1B lyrics and upsamplers can process 16 samples at a time, while 5B can fit only up to 3. Since the vast majority of time is spent on upsampling, we recommend using a multiple of 3 less than 16 like `--n_samples 15` for `5b_lyrics`. This will make the top-level generate samples in groups of three while upsampling is done in one pass.
+On a V100, it takes about 3 hrs to fully sample 20 seconds of music. Since this is a long time, it is recommended to use `n_samples > 1` so you can generate as many samples as possible in parallel. The 1B lyrics and upsamplers can process 16 samples at a time, while 5B can fit only up to 3. Since the vast majority of time is spent on upsampling, we recommend using a multiple of 3 less than 16 like `--n_samples 15` for `5b_lyrics`. This will make the top-level generate samples in groups of three while upsampling is done in one pass.<br>
+V100では、20秒の音楽を完全にサンプリングするのに約3時間かかります。これは長いので、できるだけ多くのサンプルを並行して生成できるように、`n_samples > 1`を使うことをお勧めします。1Bの歌詞とアップサンプラーは一度に16個のサンプルを処理できますが、5Bでは3個までしか処理できません。 大部分の時間がアップサンプリングに費やされるので、`5b_lyrics`には`--n_samples 15`のように16よりも3の倍数を使うことをお勧めします。これにより、トップレベルは3つのグループに分けてサンプルを生成し、アップサンプリングは1回のパスで行われます。
 
-To continue sampling from already generated codes for a longer duration, you can run
+To continue sampling from already generated codes for a longer duration, you can run<br>
+すでに生成されたコードからより長い期間サンプリングを続けるには、次のように実行します。
 ```
 python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --mode=continue \
 --codes_file=sample_5b/level_0/data.pth.tar --sample_length_in_seconds=40 --total_sample_length_in_seconds=180 \
 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125
 ```
-Here, we take the 20 seconds samples saved from the first sampling run at `sample_5b/level_0/data.pth.tar` and continue by adding 20 more seconds. 
+Here, we take the 20 seconds samples saved from the first sampling run at `sample_5b/level_0/data.pth.tar` and continue by adding 20 more seconds.<br>
+ここでは、`sample_5b/level_0/data.pth.tar`にある最初のサンプリング実行から保存された20秒のサンプルを取り、さらに20秒のサンプルを追加して続けます。
 
 You could also continue directly from the level 2 saved outputs, just pass `--codes_file=sample_5b/level_2/data.pth.tar`.
- Note this will upsample the full 40 seconds song at the end.
+ Note this will upsample the full 40 seconds song at the end.<br>
+ レベル2の保存された出力から直接続けることもできます。
+ これにより、最後に40秒の曲がアップサンプルされることに注意してください。
 
-If you stopped sampling at only the first level and want to upsample the saved codes, you can run
+If you stopped sampling at only the first level and want to upsample the saved codes, you can run<br>
+最初のレベルだけでサンプリングを停止し、保存されたコードをアップサンプリングしたい場合は、次のように実行します。
 ```
 python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --mode=upsample \
 --codes_file=sample_5b/level_2/data.pth.tar --sample_length_in_seconds=20 --total_sample_length_in_seconds=180 \
 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125
 ```
-Here, we take the 20 seconds samples saved from the first sampling run at `sample_5b/level_2/data.pth.tar` and upsample the lower two levels.
+Here, we take the 20 seconds samples saved from the first sampling run at `sample_5b/level_2/data.pth.tar` and upsample the lower two levels.<br>
+ここでは、`sample_5b/level_2/data.pth.tar`の最初のサンプリング実行から保存された20秒のサンプルを取り、下位の2つのレベルをアップサンプリングします。
 
 ## Prompt with your own music
-If you want to prompt the model with your own creative piece or any other music, first save them as wave files and run
+If you want to prompt the model with your own creative piece or any other music, first save them as wave files and run<br>
+あなた自身の創造的な作品やその他の音楽でモデルを表示したい場合は、まずそれらをウェーブファイルとして保存してから実行する
+
 ```
 python jukebox/sample.py --model=5b_lyrics --name=sample_5b_prompted --levels=3 --mode=primed \
 --audio_file=path/to/recording.wav,awesome-mix.wav,fav-song.wav,etc.wav --prompt_length_in_seconds=12 \
 --sample_length_in_seconds=20 --total_sample_length_in_seconds=180 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125
 ```
-This will load the four files, tile them to fill up to `n_samples` batch size, and prime the model with the first `prompt_length_in_seconds` seconds.
+This will load the four files, tile them to fill up to `n_samples` batch size, and prime the model with the first `prompt_length_in_seconds` seconds.<br>
+これにより、4つのファイルがロードされ、`n_samples` のバッチサイズを満たすようにタイル化され、最初の `prompt_length_in_seconds` 秒でモデルがプライムされます。
 
 # Training
 ## VQVAE
