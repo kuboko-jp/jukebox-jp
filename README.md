@@ -196,7 +196,8 @@ that `make_models` restores our checkpoint correctly.
 コマンドラインスクリプトで直接 hps を変更した場合 (例: `heads`) は、以下のように辞書を更新してください。で `make_models` がチェックポイントを正しく復元していることを確認してください。
 - サンプリングセクションで説明したようにsample.pyを実行しますが、`--model=my_model`を指定します。
 
-For example, let's say we trained `small_vqvae`, `small_prior`, and `small_upsampler` under `/path/to/jukebox/logs`. In `make_models.py`, we are going to declare a tuple of the new models as `my_model`.
+For example, let's say we trained `small_vqvae`, `small_prior`, and `small_upsampler` under `/path/to/jukebox/logs`. In `make_models.py`, we are going to declare a tuple of the new models as `my_model`.<br>
+例えば、`/path/to/jukebox/logs` の下で `small_vqvae`, `small_prior`, `small_upsampler` を学習させたとします。make_models.pyでは、新しいモデルのタプルを `my_model` として宣言します。
 ```
 MODELS = {
     '5b': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_5b"),
@@ -206,7 +207,11 @@ MODELS = {
 }
 ```
 
-Next, in `hparams.py`, we add them to the registry with the corresponding `restore_`paths and any other command line options used during training. Another important note is that for top-level priors with lyric conditioning, we have to locate a self-attention layer that shows alignment between the lyric and music tokens. Look for layers where `prior.prior.transformer._attn_mods[layer].attn_func` is either 6 or 7. If your model is starting to sing along lyrics, it means some layer, head pair has learned alignment. Congrats!
+Next, in `hparams.py`, we add them to the registry with the corresponding `restore_`paths and any other command line options used during training. Another important note is that for top-level priors with lyric conditioning, we have to locate a self-attention layer that shows alignment between the lyric and music tokens. Look for layers where `prior.prior.transformer._attn_mods[layer].attn_func` is either 6 or 7. If your model is starting to sing along lyrics, it means some layer, head pair has learned alignment. Congrats!<br>
+次に、`hparams.py`の中で、`restore_`paths'やトレーニング中に使用されたその他のコマンドラインオプションに対応する`hparams.py`をレジストリに追加します。
+もう一つの重要な注意点は、歌詞条件付けを伴うトップレベルのプリオールについては、歌詞とミュージックトークンの間のアライメントを示す自己注意層を見つけなければならないということです。
+`prior.previous.transformer._attn_mods[layer].attn_func`が6か7のレイヤを探してください。あなたのモデルが歌詞に沿って歌い始めたら、それはあるレイヤー、ヘッドペアがアライメントを学習したことを意味します。
+おめでとうございます。
 ```
 my_small_vqvae = Hyperparams(
     restore_vqvae='/path/to/jukebox/logs/small_vqvae/checkpoint_some_step.pth.tar',
@@ -238,36 +243,49 @@ HPARAMS_REGISTRY["my_small_upsampler"] = my_small_upsampler
 
 #### Train with labels 
 To train with you own metadata for your audio files, implement `get_metadata` in `data/files_dataset.py` to return the 
-`artist`, `genre` and `lyrics` for a given audio file. For now, you can pass `''` for lyrics to not use any lyrics.
+`artist`, `genre` and `lyrics` for a given audio file. For now, you can pass `''` for lyrics to not use any lyrics.<br>
+オーディオファイルのメタデータを使って学習するには、`data/files_dataset.py` で `get_metadata` を実装して 
+与えられたオーディオファイルに対して `artist`, `genre`, `lyrics` を指定します。今のところ、歌詞に `''` を渡すことで歌詞を使わないようにすることができます。
 
-For training with labels, we'll use `small_labelled_prior` in `hparams.py`, and we set `labels=True,labels_v3=True`. 
+For training with labels, we'll use `small_labelled_prior` in `hparams.py`, and we set `labels=True,labels_v3=True`. <br>
+ラベルを用いた学習では、`hparams.py` で `small_labelled_prior` を用い、`labels=True,labels_v3=True` を設定します。<br>
 We use 2 kinds of labels information:
 - Artist/Genre: 
   - For each file, we return an artist_id and a list of genre_ids. The reason we have a list and not a single genre_id 
   is that in v2, we split genres like `blues_rock` into a bag of words `[blues, rock]`, and we pass atmost 
   `max_bow_genre_size` of those, in `v3` we consider it as a single word and just set `max_bow_genre_size=1`.
+  - 各ファイルについて、私たちは artist_id と genre_id のリストを返します。単一のジャンルIDではなくリストを返すのは、v2では `blues_rock` のようなジャンルを `[blues, rock]` のような単語の袋に分割していたためです。 これらのうち `max_bow_genre_size` は、`v3` では一つの単語とみなして `max_bow_genre_size=1` とします。
   - Update the `v3_artist_ids` and `v3_genre_ids` to use ids from your new dataset. 
+  - v3_artist_ids` と `v3_genre_ids` を更新して、新しいデータセットの ID を使うようにします。
   - In `small_labelled_prior`, set the hps `y_bins = (number_of_genres, number_of_artists)` and `max_bow_genre_size=1`. 
+  - small_labelled_prior` で、`y_bins = (number_of_genres, number_of_artists)` と `max_bow_genre_size=1` を設定します。
 - Timing: 
   - For each chunk of audio, we return the `total_length` of the song, the `offset` the current audio chunk is at and 
   the `sample_length` of the audio chunk. We have three timing embeddings: total_length, our current position, and our 
   current position as a fraction of the total length, and we divide the range of these values into `t_bins` discrete bins. 
+  - 各オーディオチャンクに対して、曲の `total_length`、現在のオーディオチャンクの `offset`、および はオーディオチャンクの `sample_length` です。3つのタイミングエンベッディングがあります: total_length、現在の位置、そして これらの値の範囲を `t_bins` の離散的なビンに分割します。
   - In `small_labelled_prior`, set the hps `min_duration` and `max_duration` to be the shortest/longest duration of audio 
   files you want for your dataset, and `t_bins` for how many bins you want to discretize timing information into. Note 
   `min_duration * sr` needs to be at least `sample_length` to have an audio chunk in it.
+  - `small_labelled_prior`では、`min_duration` と `max_duration` にオーディオの最短/最長の長さを設定します。ファイル、タイミング情報を離散化したいビン数を `t_bins` で指定します。
+注意事項 `min_duration * sr` は少なくとも `sample_length` でなければなりません。
 
-After these modifications, to train a top-level with labels, run
+After these modifications, to train a top-level with labels, run<br>
+これらの修正の後、ラベルを使ってトップレベルを学習するには、次のように実行します。
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=vqvae,small_labelled_prior,all_fp16,cpu_ema --name=pretrained_vqvae_small_prior_labels \
 --sample_length=1048576 --bs=4 --aug_shift --aug_blend --audio_files_dir={audio_files_dir} \
 --labels=True --train --test --prior --levels=3 --level=2 --weight_decay=0.01 --save_iters=1000
 ```
 
-For sampling, follow same instructions as [above](#sample-from-new-model) but use `small_labelled_prior` instead of `small_prior`.  
+For sampling, follow same instructions as [above](#sample-from-new-model) but use `small_labelled_prior` instead of `small_prior`.<br>
+サンプリングについては、[上記](#sample-from-new-model)と同じ指示に従いますが、`small_prior` の代わりに `small_labelled_prior` を使用します。 
 
 #### Train with lyrics
 To train in addition with lyrics, update `get_metadata` in `data/files_dataset.py` to return `lyrics` too.
-For training with lyrics, we'll use `small_single_enc_dec_prior` in `hparams.py`. 
+For training with lyrics, we'll use `small_single_enc_dec_prior` in `hparams.py`. <br>
+歌詞を加えて学習するには、`data/files_dataset.py` の `get_metadata` を更新して `lyrics` も返すようにします。
+歌詞を使った学習には、`hparams.py` の `small_single_enc_dec_prior` を利用します。
 - Lyrics: 
   - For each file, we linearly align the lyric characters to the audio, find the position in lyric that corresponds to 
   the midpoint of our audio chunk, and pass a window of `n_tokens` lyric characters centred around that. 
@@ -277,6 +295,10 @@ For training with lyrics, we'll use `small_single_enc_dec_prior` in `hparams.py`
   - If you use a non-English vocabulary, update `text_processor.py` with your new vocab and set
   `n_vocab = number of characters in vocabulary` accordingly in `small_single_enc_dec_prior`. In v2, we had a `n_vocab=80` 
   and in v3 we missed `+` and so `n_vocab=79` of characters. 
+- 歌詞 
+  - 各ファイルについて、歌詞の文字を音声に合わせて直線的に配置し、歌詞の中で をオーディオチャンクの中点に設定し、そこを中心とした `n_tokens` のリリック文字のウィンドウを渡す。
+  - small_single_enc_dec_prior` で、`use_tokens=True` と `n_tokens` にオーディオチャンクに使用するリリック文字の数を設定する。これを `sample_length` に合わせて設定することで、音声チャンクの歌詞がほとんどの場合、そのサイズのウィンドウ内に収まるようになります。
+  - 英語以外の語彙を使う場合は、`text_processor.py` を新しい語彙で更新し、`small_single_enc_dec_prior` で `n_vocab = 語彙の文字数` を適宜設定してください。v2では `n_vocab=80` としていました。v3では `+` を見落としていたため、`n_vocab=79` の文字が出てきてしまいました。
 
 After these modifications, to train a top-level with labels and lyrics, run
 ```
