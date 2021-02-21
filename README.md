@@ -118,7 +118,11 @@ mpiexec -n {ngpus} python jukebox/train.py --hps=small_vqvae --name=small_vqvae 
 ```
 Here, `{audio_files_dir}` is the directory in which you can put the audio files for your dataset, and `{ngpus}` is number of GPU's you want to use to train. 
 The above trains a two-level VQ-VAE with `downs_t = (5,3)`, and `strides_t = (2, 2)` meaning we downsample the audio by `2**5 = 32` to get the first level of codes, and `2**8 = 256` to get the second level codes.  
-Checkpoints are stored in the `logs` folder. You can monitor the training by running Tensorboard
+Checkpoints are stored in the `logs` folder. You can monitor the training by running Tensorboard<br>
+ここで，`{audio_files_dir}` はデータセットの音声ファイルを格納するディレクトリ，`{ngpus}` は学習に使用するGPUの数である．
+上の例では，`downs_t = (5,3)`，`strides_t = (2, 2)` の2レベルのVQ-VAEを学習しているが，これは，第1レベルのコードを得るために`2**5 = 32`，第2レベルのコードを得るために`2**8 = 256`でオーディオをダウンサンプルすることを意味している． 
+チェックポイントは `logs` フォルダに保存されます。
+Tensorboard によって訓練の様子をモニター出来ます。
 ```
 tensorboard --logdir logs
 ```
@@ -126,7 +130,9 @@ tensorboard --logdir logs
 ## Prior
 ### Train prior or upsamplers
 Once the VQ-VAE is trained, we can restore it from its saved checkpoint and train priors on the learnt codes. 
-To train the top-level prior, we can run
+To train the top-level prior, we can run<br>
+VQ-VAEが訓練されると、保存されたチェックポイントから復元し、学習されたコードの優先順位を訓練することができます。
+トップレベルの先行詞を学習するには、次のように実行します。
 
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=small_vqvae,small_prior,all_fp16,cpu_ema --name=small_prior \
@@ -134,27 +140,33 @@ mpiexec -n {ngpus} python jukebox/train.py --hps=small_vqvae,small_prior,all_fp1
 --restore_vqvae=logs/small_vqvae/checkpoint_latest.pth.tar --prior --levels=2 --level=1 --weight_decay=0.01 --save_iters=1000
 ```
 
-To train the upsampler, we can run
+To train the upsampler, we can run<br>
+アップサンプラを訓練するには、次のようにします。
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=small_vqvae,small_upsampler,all_fp16,cpu_ema --name=small_upsampler \
 --sample_length=262144 --bs=4 --audio_files_dir={audio_files_dir} --labels=False --train --test --aug_shift --aug_blend \
 --restore_vqvae=logs/small_vqvae/checkpoint_latest.pth.tar --prior --levels=2 --level=0 --weight_decay=0.01 --save_iters=1000
 ```
 We pass `sample_length = n_ctx * downsample_of_level` so that after downsampling the tokens match the n_ctx of the prior hps. 
-Here, `n_ctx = 8192` and `downsamples = (32, 256)`, giving `sample_lengths = (8192 * 32, 8192 * 256) = (65536, 2097152)` respectively for the bottom and top level. 
+Here, `n_ctx = 8192` and `downsamples = (32, 256)`, giving `sample_lengths = (8192 * 32, 8192 * 256) = (65536, 2097152)` respectively for the bottom and top level.<br>
+ここで，`sample_length = n_ctx * downsample_of_level` を渡すことで，ダウンサンプリング後のトークンが前の hps の n_ctx と一致するようにします．
+ここで、`n_ctx = 8192`, `downsamples = (32, 256)` とすると、ボトムレベルとトップレベルについて、それぞれ `sample_lengths = (8192 * 32, 8192 * 256) = (65536, 2097152)` となります。
 
 ### Learning rate annealing
 To get the best sample quality anneal the learning rate to 0 near the end of training. To do so, continue training from the latest 
-checkpoint and run with
+checkpoint and run with<br>
+最高のサンプル品質を得るためには、トレーニングの終了近くで学習率を0にアニーリングします。そのためには、最新の チェックポイントから実行を続ける。
 ```
 --restore_prior="path/to/checkpoint" --lr_use_linear_decay --lr_start_linear_decay={already_trained_steps} --lr_decay={decay_steps_as_needed}
 ```
 
-### Reuse pre-trained VQ-VAE and train top-level prior on new dataset from scratch.
+### Reuse pre-trained VQ-VAE and train top-level prior on new dataset from scratch.(事前に学習したVQ-VAEを再利用し、新しいデータセットでトップレベルの優先順位をゼロから学習します。)
 #### Train without labels
 Our pre-trained VQ-VAE can produce compressed codes for a wide variety of genres of music, and the pre-trained upsamplers 
 can upsample them back to audio that sound very similar to the original audio.
-To re-use these for a new dataset of your choice, you can retrain just the top-level  
+To re-use these for a new dataset of your choice, you can retrain just the top-level<br>
+事前に訓練されたVQ-VAEは、様々なジャンルの音楽に対応した圧縮コードを作成することができ、訓練済みのアップサンプラーは、元のオーディオに非常に近いサウンドのオーディオにアップサンプリングして戻すことができます。
+これらを任意の新しいデータセットに再利用するために、トップレベルだけを再学習することができます。
 
 To train top-level on a new dataset, run
 ```
@@ -162,9 +174,12 @@ mpiexec -n {ngpus} python jukebox/train.py --hps=vqvae,small_prior,all_fp16,cpu_
 --sample_length=1048576 --bs=4 --aug_shift --aug_blend --audio_files_dir={audio_files_dir} \
 --labels=False --train --test --prior --levels=3 --level=2 --weight_decay=0.01 --save_iters=1000
 ```
-Training the `small_prior` with a batch size of 2, 4, and 8 requires 6.7 GB, 9.3 GB, and 15.8 GB of GPU memory, respectively. A few days to a week of training typically yields reasonable samples when the dataset is homogeneous (e.g. all piano pieces, songs of the same style, etc).
+Training the `small_prior` with a batch size of 2, 4, and 8 requires 6.7 GB, 9.3 GB, and 15.8 GB of GPU memory, respectively. A few days to a week of training typically yields reasonable samples when the dataset is homogeneous (e.g. all piano pieces, songs of the same style, etc).<br>
+バッチサイズが2、4、8の場合、`small_prior`の学習にはそれぞれ6.7GB、9.3GB、15.8GBのGPUメモリが必要です。データセットが均質な場合（例えば、すべてのピアノ曲、同じスタイルの曲など）、数日から1週間のトレーニングで、通常は妥当なサンプルを得ることができます。
 
-Near the end of training, follow [this](#learning-rate-annealing) to anneal the learning rate to 0
+Near the end of training, follow [this](#learning-rate-annealing) to anneal the learning rate to 0<br>
+トレーニングの終わり近くでは、[これ](#learning-rate-annealing)に従って学習率を0にするためのアニーリングを行う
+
 
 #### Sample from new model
 You can then run sample.py with the top-level of our models replaced by your new model. To do so,
@@ -172,7 +187,14 @@ You can then run sample.py with the top-level of our models replaced by your new
 - Update the `small_prior` dictionary in `hparams.py` to include `restore_prior='path/to/checkpoint'`. If you
 you changed any hps directly in the command line script (eg:`heads`), make sure to update them in the dictionary too so 
 that `make_models` restores our checkpoint correctly.
-- Run sample.py as outlined in the sampling section, but now with `--model=my_model` 
+- Run sample.py as outlined in the sampling section, but now with `--model=my_model` <br>
+
+そして、モデルのトップレベルを新しいモデルに置き換えてsample.pyを実行することができます。
+これを行うには、以下のようにします。
+- my_model=("vqvae", "upsampler_level_0", "upsampler_level_1", "small_prior")`を `make_models.py` の `MODELS` に追加する。
+- hparams.py` の `small_prior` 辞書を `restore_prior='path/to/checkpoint'` を含むように更新する。
+コマンドラインスクリプトで直接 hps を変更した場合 (例: `heads`) は、以下のように辞書を更新してください。で `make_models` がチェックポイントを正しく復元していることを確認してください。
+- サンプリングセクションで説明したようにsample.pyを実行しますが、`--model=my_model`を指定します。
 
 For example, let's say we trained `small_vqvae`, `small_prior`, and `small_upsampler` under `/path/to/jukebox/logs`. In `make_models.py`, we are going to declare a tuple of the new models as `my_model`.
 ```
