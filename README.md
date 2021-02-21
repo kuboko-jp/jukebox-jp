@@ -1,4 +1,6 @@
 **Status:** Archive (code is provided as-is, no updates expected)
+**ステータス** アーカイブ (コードはそのまま提供されています。更新は期待されていません)
+
 
 # Jukebox
 Code for "Jukebox: A Generative Model for Music"
