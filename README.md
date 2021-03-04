@@ -37,7 +37,8 @@ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cud
 
 # Sampling
 ## Sampling from scratch
-To sample normally, run the following command. Model can be `5b`, `5b_lyrics`, `1b_lyrics`
+To sample normally, run the following command. Model can be `5b`, `5b_lyrics`, `1b_lyrics`<br>
+通常のサンプルを作成するには、以下のコマンドを実行します。モデルは `5b`, `5b_lyrics`, `1b_lyrics` です。
 ``` 
 python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --sample_length_in_seconds=20 \
 --total_sample_length_in_seconds=180 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125
