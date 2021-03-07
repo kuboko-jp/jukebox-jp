@@ -65,10 +65,7 @@ The hps are for a V100 GPU with 16 GB GPU memory. The `1b_lyrics`, `5b`, and `5b
 3.8 GB, 10.3 GB, and 11.5 GB, respectively. The peak memory usage to store transformer key, value cache is about 400 MB 
 for `1b_lyrics` and 1 GB for `5b_lyrics` per sample. If you are having trouble with CUDA OOM issues, try `1b_lyrics` or 
 decrease `max_batch_size` in sample.py, and `--n_samples` in the script call.<br>
-hpsは16GBのGPUメモリを搭載したV100 GPUのものです。`1b_lyrics`, `5b`, `5b_lyrics` のトップレベルプリオールは 
-それぞれ3.8GB、10.3GB、11.5GBである。トランスフォーマーのキー、値キャッシュを格納するためのメモリ使用量のピークは約400MBです。
-1サンプルあたり、`1b_lyrics`で1GB、`5b_lyrics`で1GBです。CUDA OOM の問題で困っている場合は、`1b_lyrics` や `5b_lyrics` を試してみてください。
-sample.pyの`max_batch_size`とスクリプトコールの`--n_samples`を減少させます。
+hpsは、16GBのGPUメモリを搭載したV100 GPUの場合。`1b_lyrics`、`5b`、`5b_lyrics`のトップレベルプリオはそれぞれ3.8GB、10.3GB、11.5GBを使用しています。トランスフォーマーのキー、値キャッシュを格納するためのピークメモリ使用量は、1サンプルあたり`1b_lyrics`で約400MB、`5b_lyrics`で約1GBです。CUDA OOMの問題で悩んでいる場合は、`1b_lyrics`を試すか、sample.pyで`max_batch_size`を減らし、スクリプトコールで`--n_samples`を減らしてみてください。
 
 On a V100, it takes about 3 hrs to fully sample 20 seconds of music. Since this is a long time, it is recommended to use `n_samples > 1` so you can generate as many samples as possible in parallel. The 1B lyrics and upsamplers can process 16 samples at a time, while 5B can fit only up to 3. Since the vast majority of time is spent on upsampling, we recommend using a multiple of 3 less than 16 like `--n_samples 15` for `5b_lyrics`. This will make the top-level generate samples in groups of three while upsampling is done in one pass.<br>
 V100では、20秒の音楽を完全にサンプリングするのに約3時間かかります。これは長いので、できるだけ多くのサンプルを並行して生成できるように、`n_samples > 1`を使うことをお勧めします。1Bの歌詞とアップサンプラーは一度に16個のサンプルを処理できますが、5Bでは3個までしか処理できません。 大部分の時間がアップサンプリングに費やされるので、`5b_lyrics`には`--n_samples 15`のように16よりも3の倍数を使うことをお勧めします。これにより、トップレベルは3つのグループに分けてサンプルを生成し、アップサンプリングは1回のパスで行われます。
