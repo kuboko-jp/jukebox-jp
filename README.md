@@ -65,7 +65,7 @@ The hps are for a V100 GPU with 16 GB GPU memory. The `1b_lyrics`, `5b`, and `5b
 3.8 GB, 10.3 GB, and 11.5 GB, respectively. The peak memory usage to store transformer key, value cache is about 400 MB 
 for `1b_lyrics` and 1 GB for `5b_lyrics` per sample. If you are having trouble with CUDA OOM issues, try `1b_lyrics` or 
 decrease `max_batch_size` in sample.py, and `--n_samples` in the script call.<br>
-hpsは16GBのGPUメモリを搭載したV100 GPUのものです。1b_lyrics`, `5b`, `5b_lyrics` のトップレベルプリオールは 
+hpsは16GBのGPUメモリを搭載したV100 GPUのものです。`1b_lyrics`, `5b`, `5b_lyrics` のトップレベルプリオールは 
 それぞれ3.8GB、10.3GB、11.5GBである。トランスフォーマーのキー、値キャッシュを格納するためのメモリ使用量のピークは約400MBです。
 1サンプルあたり、`1b_lyrics`で1GB、`5b_lyrics`で1GBです。CUDA OOM の問題で困っている場合は、`1b_lyrics` や `5b_lyrics` を試してみてください。
 sample.pyの`max_batch_size`とスクリプトコールの`--n_samples`を減少させます。
