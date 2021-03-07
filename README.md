@@ -97,7 +97,7 @@ Here, we take the 20 seconds samples saved from the first sampling run at `sampl
 
 ## Prompt with your own music
 If you want to prompt the model with your own creative piece or any other music, first save them as wave files and run<br>
-あなた自身の創造的な作品やその他の音楽でモデルを表示したい場合は、まずそれらをウェーブファイルとして保存してから実行する
+あなた自身の創造的な作品やその他の音楽でモデルを表示したい場合は、まずそれらをファイルとして保存してから実行する
 
 ```
 python jukebox/sample.py --model=5b_lyrics --name=sample_5b_prompted --levels=3 --mode=primed \
