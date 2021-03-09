@@ -130,7 +130,7 @@ tensorboard --logdir logs
 Once the VQ-VAE is trained, we can restore it from its saved checkpoint and train priors on the learnt codes. 
 To train the top-level prior, we can run<br>
 VQ-VAEが訓練されると、保存されたチェックポイントから復元し、学習されたコードの優先順位を訓練することができます。
-'the top-level prior'を学習するには、以下のように実行します。
+`the top-level prior`を学習するには、以下のように実行します。
 
 ```
 mpiexec -n {ngpus} python jukebox/train.py --hps=small_vqvae,small_prior,all_fp16,cpu_ema --name=small_prior \
