@@ -330,7 +330,7 @@ Previously, we showed how to train a small top-level prior from scratch. Assumin
 - Support `--labels=True` by implementing `get_metadata` in `jukebox/data/files_dataset.py` for your dataset.
 - Add new entries in `jukebox/data/ids`. We recommend replacing existing mappings (e.g. rename `"unknown"`, etc with styles of your choice). This uses the pre-trained style vectors as initialization and could potentially save some compute.
 - `jukebox/data/files_dataset.py` で `get_metadata` を実装することで `--labels=True` をサポートします。
-- jukebox/data/idに新しいエントリを追加します。既存のマッピングを置き換えることを推奨します (例: `"unknown"` などの名前を任意のスタイルに変更する)。これは、事前に学習されたスタイルベクトルを初期化に使用し、計算量を節約できる可能性があります。
+- `jukebox/data/ids`に新しいエントリを追加します。既存のマッピングを置き換えることを推奨します (例: `"unknown"` などの名前を任意のスタイルに変更する)。これは、事前に学習されたスタイルベクトルを初期化に使用し、計算量を節約できる可能性があります。
 
 After these modifications, run <br>
 これらの修正を行った後、次のように実行します。
