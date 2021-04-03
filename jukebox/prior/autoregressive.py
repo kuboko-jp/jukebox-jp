@@ -132,6 +132,7 @@ class ConditionalAutoregressive2D(nn.Module):
         if self.x_cond:
             assert x_cond is not None
             assert x_cond.shape == (N, D, self.width) or x_cond.shape == (N, 1, self.width), f"{x_cond.shape} != {(N, D, self.width)} nor {(N, 1, self.width)}. Did you pass the correct --sample_length?"
+            # >>> AssertionError: torch.Size([1, 6528, 2048]) != (1, 6516, 2048) nor (1, 1, 2048). Did you pass the correct --sample_length?
         else:
             assert x_cond is None
             x_cond = t.zeros((N, 1, self.width), device=x.device, dtype=t.float)

@@ -75,7 +75,14 @@ class FilesAudioDataset(Dataset):
             example, ("unknown", "classical", "") could be a metadata for a
             piano piece.
         """
-        return None, None, None
+
+        # 試しに平井堅のアルバムデータセットのメタデータを設定
+        artist = "ken hirai"
+        genre = "j-pop"
+        full_lyrics = ""
+
+        # return None, None, None
+        return artist, genre, full_lyrics
 
     def get_song_chunk(self, index, offset, test=False):
         filename, total_length = self.files[index], self.durations[index]

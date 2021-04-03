@@ -39,6 +39,7 @@ class ArtistGenreProcessor():
 
     def get_artist_id(self, artist):
         input_artist = artist
+        print(artist)  # 追加
         if self.v3:
             artist = artist.lower()
         else:
