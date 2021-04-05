@@ -189,8 +189,8 @@ that `make_models` restores our checkpoint correctly.
 
 そして、モデルのトップレベルを新しいモデルに置き換えてsample.pyを実行することができます。
 これを行うには、以下のようにします。
-- my_model=("vqvae", "upsampler_level_0", "upsampler_level_1", "small_prior")`を `make_models.py` の `MODELS` に追加する。
-- hparams.py` の `small_prior` 辞書を `restore_prior='path/to/checkpoint'` を含むように更新する。
+- `my_model=("vqvae", "upsampler_level_0", "upsampler_level_1", "small_prior")`を `make_models.py` の `MODELS` に追加する。
+- `hparams.py` の `small_prior` 辞書を `restore_prior='path/to/checkpoint'` を含むように更新する。
 コマンドラインスクリプトで直接 hps を変更した場合 (例: `heads`) は、以下のように辞書を更新してください。で `make_models` がチェックポイントを正しく復元していることを確認してください。
 - サンプリングセクションで説明したようにsample.pyを実行しますが、`--model=my_model`を指定します。
 
