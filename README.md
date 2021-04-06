@@ -58,7 +58,7 @@ Run `python -m http.server` and open the html through the server to see the lyri
 A summary of all sampling data including zs, x, labels and sampling_kwargs is stored in `{name}/level_{level}/data.pth.tar`.<br>
 各レベルからデコードされたサンプルは `{name}/level_{level}` に格納されます。
 また、`{name}/level_{level}/index.html`の下に歌詞を並べてhtmlとして表示することもできます。
-python -m http.server`を実行して、サーバからhtmlを開くと、曲の再生に合わせて歌詞がアニメーションで表示されます。 
+`python -m http.server`を実行して、サーバからhtmlを開くと、曲の再生に合わせて歌詞がアニメーションで表示されます。 
 zs, x, labels, sampling_kwargsを含むすべてのサンプリングデータの要約は、`{name}/level_{level}/data.pth.tar`に格納されています。
 
 The hps are for a V100 GPU with 16 GB GPU memory. The `1b_lyrics`, `5b`, and `5b_lyrics` top-level priors take up 
