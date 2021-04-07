@@ -177,7 +177,11 @@ def load_codes(codes_file, duration, priors, hps):
 # Generate and save samples, alignment, and webpage for visualization.
 def save_samples(model, device, hps, sample_hps):
     print(hps)
+<<<<<<< HEAD
     from jukebox.lyricdict import poems, gpt_2_lyrics, jp  # jpを追加
+=======
+    from jukebox.lyricdict import poems, gpt_2_lyrics
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
     vqvae, priors = make_model(model, device, hps)
 
     assert hps.sample_length//priors[-2].raw_to_tokens >= priors[-2].n_ctx, f"Upsampling needs atleast one ctx in get_z_conds. Please choose a longer sample length"
@@ -189,7 +193,10 @@ def save_samples(model, device, hps, sample_hps):
     # We used different label sets in our models, but you can write the human friendly names here and we'll map them under the hood for each model.
     # For the 5b/5b_lyrics model and the upsamplers, labeller will look up artist and genres in v2 set. (after lowercasing, removing non-alphanumerics and collapsing whitespaces to _).
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
+<<<<<<< HEAD
     """
+=======
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
     metas = [dict(artist = "Alan Jackson",
                   genre = "Country",
                   lyrics = poems['ozymandias'],
@@ -221,6 +228,7 @@ def save_samples(model, device, hps, sample_hps):
                   offset=offset,
                   ),
              ]
+<<<<<<< HEAD
     """
     # 下記に変更
     metas = [dict(artist = "ken hirai",
@@ -230,6 +238,8 @@ def save_samples(model, device, hps, sample_hps):
                   offset=offset,
                   )
              ]
+=======
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
@@ -240,10 +250,14 @@ def save_samples(model, device, hps, sample_hps):
 
     lower_level_chunk_size = 32
     lower_level_max_batch_size = 16
+<<<<<<< HEAD
     # 下記を変更(2021/04/06)
     # if model == '1b_lyrics':
     if "1b_lyrics" in model:  # "1b_lyrics"の文字列が含まれている場合:True / それ以外:False  (追加)
         print(f"set {model} params as 1b_lyrics")  # (追加)
+=======
+    if model == '1b_lyrics':
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
         chunk_size = 32
         max_batch_size = 16
     else:

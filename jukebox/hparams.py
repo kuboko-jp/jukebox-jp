@@ -187,6 +187,7 @@ prior_1b_lyrics = Hyperparams(
 prior_1b_lyrics.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics"] = prior_1b_lyrics
 
+<<<<<<< HEAD
 # Fine Tuningしたモデル用に、下記を追加
 # ------------------------------------------------------------------------------------
 model_local_path = '/workspace/Jukebox-kuboko'
@@ -216,6 +217,8 @@ prior_1b_lyrics_finetuned_kenhirai.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetuned_kenhirai"] = prior_1b_lyrics_finetuned_kenhirai
 # ------------------------------------------------------------------------------------
 
+=======
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
 # Small models
 small_vqvae = Hyperparams(
     sr = 22050,

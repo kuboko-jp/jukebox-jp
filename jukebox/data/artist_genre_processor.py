@@ -34,18 +34,29 @@ class ArtistGenreProcessor():
         else:
             self.artist_id_file = f"{dirname}/ids/v2_artist_ids.txt"
             self.genre_id_file = f"{dirname}/ids/v2_genre_ids.txt"
+<<<<<<< HEAD
         print(f"using {self.artist_id_file}")
+=======
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
         self.load_artists()
         self.load_genres()
 
     def get_artist_id(self, artist):
         input_artist = artist
+<<<<<<< HEAD
         if self.v3:
             artist = artist.lower()
             print(f"input {artist} from v3")
         else:  # v2
             artist = norm(artist)
             print(f"input {artist} from v2")
+=======
+        print(artist)  # 追加
+        if self.v3:
+            artist = artist.lower()
+        else:
+            artist = norm(artist)
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
         if artist not in self.artist_ids:
             print(f"Input artist {input_artist} maps to {artist}, which is not present in {self.artist_id_file}. "
                   f"Defaulting to (artist_id, artist) = (0, unknown), if that seems wrong please format artist correctly")

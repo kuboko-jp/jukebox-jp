@@ -130,6 +130,7 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
+<<<<<<< HEAD
 .pyre/
 
 # lerge files
@@ -137,3 +138,6 @@ logs/
 *.wav
 *.tar
 *.png
+=======
+.pyre/
+>>>>>>> 47fae3fd531044de74994e2f3d39c246bcb34c36
