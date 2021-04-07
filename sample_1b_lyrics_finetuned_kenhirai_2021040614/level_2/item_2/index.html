@@ -1,0 +1,46 @@
+<html><head><title>2</title></head><body style='font-family: sans-serif; font-size: 1.4em; font-weight: bold; text-align: center; max-width:1024px; width: 100%; margin: auto;'>
+<link rel='icon' href='data:;base64,iVBORw0KGgo='>
+<img id='align.png' src='align.png' \>
+<audio id='audio.wav' src='audio.wav' style='width: 100%;' controls></audio>
+<pre style='white-space: pre-wrap;'><div>Artist ken hirai, Genre j-pop</div>
+<span id='2/0'></span><span id='2/1'>
+</span><span id='2/2'>R</span><span id='2/3'>i</span><span id='2/4'> </span><span id='2/5'>B</span><span id='2/6'>e</span><span id='2/7'>n</span><span id='2/8'> </span><span id='2/9'>Y</span><span id='2/10'>u</span><span id='2/11'> </span><span id='2/12'>n</span><span id='2/13'>i</span><span id='2/14'>D</span><span id='2/15'>u</span><span id='2/16'>i</span><span id='2/17'> </span><span id='2/18'>Y</span><span id='2/19'>i</span><span id='2/20'>n</span><span id='2/21'>g</span><span id='2/22'> </span><span id='2/23'>s</span><span id='2/24'>a</span><span id='2/25'>s</span><span id='2/26'>e</span><span id='2/27'>r</span><span id='2/28'>u</span><span id='2/29'>n</span><span id='2/30'>i</span><span id='2/31'>h</span><span id='2/32'>a</span><span id='2/33'>,</span><span id='2/34'> </span><span id='2/35'>
+</span><span id='2/36'>d</span><span id='2/37'>o</span><span id='2/38'>u</span><span id='2/39'>s</span><span id='2/40'>h</span><span id='2/41'>i</span><span id='2/42'>t</span><span id='2/43'>a</span><span id='2/44'>r</span><span id='2/45'>a</span><span id='2/46'>i</span><span id='2/47'>i</span><span id='2/48'>n</span><span id='2/49'>o</span><span id='2/50'>?</span></pre>
+<script>
+            async function fetchAsync (url) {
+                let response = await fetch(url);
+                let data = await response.json();
+                return data;
+            }
+    
+            var audio = document.getElementById('audio.wav');
+            audio.onplay = function () {
+                track = '2'
+                fetchAsync('align.json')
+                .then(data => animateLyrics(data, track, this))
+                .catch(reason => console.log(reason.message))
+            }; 
+    
+            function animateLyrics(data, track, audio) {
+                var animate = setInterval(function () {
+                    var time = Math.floor(audio.currentTime*215/audio.duration);
+                    if (!(time == 0 || time == 215)) {
+                        console.log(time);
+                        changeColor(data, track, audio, time);
+                    }
+                    if (audio.paused) {
+                        clearInterval(animate);
+                    }
+                }, 50);
+            }
+    
+            function changeColor(data, track, audio, time) {
+                colors = data[time]
+                for (i = 0; i < colors.length; i++){
+                    character = document.getElementById(track + '/' + i.toString());
+                    color = Math.max(230 - 10*colors[i], 0).toString();
+                    character.style.color = 'rgb(255,' + color + ',' + color + ')';
+                }
+            }
+            </script>
+</body></html>
