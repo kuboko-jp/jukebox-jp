@@ -222,6 +222,7 @@ def save_samples(model, device, hps, sample_hps):
                   ),
              ]
     """
+    
     # 下記に変更
     metas = [dict(artist = "ken hirai",
                   genre = "j-pop",
@@ -230,6 +231,16 @@ def save_samples(model, device, hps, sample_hps):
                   offset=offset,
                   )
              ]
+    
+    """
+    metas = [dict(artist = "mr_children",
+                genre = "j-pop",
+                lyrics = jp['hanabi'],
+                total_length=total_length,
+                offset=offset,
+                )
+            ]
+    """
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
@@ -245,10 +256,13 @@ def save_samples(model, device, hps, sample_hps):
     if "1b_lyrics" in model:  # "1b_lyrics"の文字列が含まれている場合:True / それ以外:False  (追加)
         print(f"set {model} params as 1b_lyrics")  # (追加)
         chunk_size = 32
-        max_batch_size = 16
+        # max_batch_size = 16
+        max_batch_size = 32  # メモリが32GBあるため2倍に変更
     else:
         chunk_size = 16
-        max_batch_size = 3
+        #max_batch_size = 3
+        max_batch_size = 6  # メモリが32GBあるため2倍に変更
+    print(f"max_batch_size : {max_batch_size}")  # 追加
     sampling_kwargs = [dict(temp=0.99, fp16=True, chunk_size=lower_level_chunk_size, max_batch_size=lower_level_max_batch_size),
                        dict(temp=0.99, fp16=True, chunk_size=lower_level_chunk_size, max_batch_size=lower_level_max_batch_size),
                        dict(temp=0.99, fp16=True, chunk_size=chunk_size, max_batch_size=max_batch_size)]

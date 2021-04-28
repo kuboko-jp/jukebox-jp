@@ -42,10 +42,10 @@ class ArtistGenreProcessor():
         input_artist = artist
         if self.v3:
             artist = artist.lower()
-            print(f"input {artist} from v3")
+            #print(f"input {artist} from v3")
         else:  # v2
             artist = norm(artist)
-            print(f"input {artist} from v2")
+            #print(f"input {artist} from v2")
         if artist not in self.artist_ids:
             print(f"Input artist {input_artist} maps to {artist}, which is not present in {self.artist_id_file}. "
                   f"Defaulting to (artist_id, artist) = (0, unknown), if that seems wrong please format artist correctly")

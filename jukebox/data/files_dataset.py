@@ -6,6 +6,8 @@ from torch.utils.data import Dataset
 from jukebox.utils.dist_utils import print_all
 from jukebox.utils.io import get_duration_sec, load_audio
 from jukebox.data.labels import Labeller
+import pandas as pd
+import os
 
 class FilesAudioDataset(Dataset):
     def __init__(self, hps):
@@ -70,16 +72,34 @@ class FilesAudioDataset(Dataset):
         If artist/genre labels are different from provided artist/genre lists,
         update labeller accordingly.
 
+        Parameters
+        ----------
+        filename: str
+            例 ... "/workspace/wav_dataset/KenHirai_JAPANESESINGER_04お願いジュリー☆.wav"
+        test: bool
+            true or false
+
         Returns:
             (artist, genre, full_lyrics) of type (str, str, str). For
             example, ("unknown", "classical", "") could be a metadata for a
             piano piece.
         """
 
-        # 試しに平井堅のアルバムデータセットのメタデータを設定
+        title_name = filename.split('/')[-1]  # ファイル名
+
+        #print(f"file name : {filename}")  # for debug
+        #print(f"title name : {title_name}")
+        #print(f"test : {test}")  # for debug
+
+        #print(f"current dir : {os.getcwd()}")
+        meta_dataset_path = "../dataset/meta_dataset/wav_lyrics_202104152324.csv"
+        df_meta = pd.read_csv(meta_dataset_path, encoding='cp932')
+
         artist = "ken hirai"
         genre = "j-pop"
-        full_lyrics = ""
+
+        full_lyrics = df_meta['lyric_roma'][df_meta.loc[df_meta.wav_path==title_name].index[0]]
+        # print(full_lyrics)
 
         # return None, None, None
         return artist, genre, full_lyrics

@@ -38,6 +38,30 @@ Your love forever
 なく し た もの を こ える つよ さ を きみ が くれ た から
 くん が くれ た から
 ''',
+'hanabi':'''
+dore kurai no neuchi ga aru daro u ？ boku ga ima iki te iru kono sekai ni 
+subete ga muimi datte omoe ru chotto tsukare ten no ka naa te ni ire ta mono 
+to hikikae ni shi te kirisute ta ikutsu mo no kagayaki ichiichi urei te 
+ireru hodo heiwa na yononaka ja nai shi ittai donna risou wo egai tara ii ？
+donna kibou wo daki susun dara ii ？ 
+kotae you mo nai sono toi kake ha nichijou ni houmura re te ku kun ga i tara nante iu ka naa 
+( kurai ) to chakashi te warau no ka naa sono yawara ka na egao ni fure te boku no yuu utsu 
+ga fuki ton dara ii noni kesshite tsukama eru koto no deki nai hanabi no you na hikari da 
+to shi ta tte mou ichi kai mou ichi kai mou ichi kai mou ichi kai boku ha kono te wo nobashi
+tai dare mo mina kanashimi wo dai teru dakedo suteki na ashita wo negatsu te iru okubyou kaze 
+ni fuka re te namikaze ga tatta sekai wo dore dake aisu ru koto ga dekiru daro u ？ 
+kangae sugi de kotoba ni tsuma ru jibun no bukiyou sa ga kirai demo myou ni kiyou ni 
+tachi furumau jibun ha sore ijou ni kirai waratsu te i te mo nai te sugo shi te mo byoudou ni 
+toki ha nagare ru mirai ga bokura wo yon deru sono koe ha ima kun ni mo kiko e te i masu ka ？
+sayonara ga mukae ni kuru koto wo saisho kara wakatsu te i ta to shi ta tte mou ichi kai mou ichi kai mou ichi kai 
+mou ichi kai nani do demo kun ni ai tai meguri ae ta koto de konnani sekai ga utsukushi ku mie ru nante souzou
+sae mo shi te i nai tanjun datte warau kai ？ kun ni kokoro kara arigatou wo iu yo todokoora nai you ni yure
+te nagare te suki kayotsu te ku mizu no you na kokoro de are tara ai taku natsu ta toki no fun made sabishi
+ku natsu ta toki no fun made mou ichi kai mou ichi kai mou ichi kai mou ichi kai kun wo tsuyoku yakitsuke
+tai dare mo mina mondai wo dae te iru dakedo suteki na ashita wo negatsu te iru okubyou kaze ni
+fuka re te namikaze ga tatta sekai wo dore dake aisu ru koto ga dekiru daro u ？
+mou ichi kai mou ichi kai mou ichi kai mou ichi kai
+''',
 }
 # -------------------------------------------------------------
 
