@@ -158,7 +158,7 @@ checkpoint and run with<br>
 --restore_prior="path/to/checkpoint" --lr_use_linear_decay --lr_start_linear_decay={already_trained_steps} --lr_decay={decay_steps_as_needed}
 ```
 
-### Reuse pre-trained VQ-VAE and train top-level prior on new dataset from scratch.(事前に学習したVQ-VAEを再利用し、新しいデータセットでトップレベルの優先順位をゼロから学習します。)
+### Reuse pre-trained VQ-VAE and train top-level prior on new dataset from scratch.(事前に学習したVQ-VAEを再利用し、新しいデータセットでtop-level priorをゼロから学習します。)
 #### Train without labels
 Our pre-trained VQ-VAE can produce compressed codes for a wide variety of genres of music, and the pre-trained upsamplers 
 can upsample them back to audio that sound very similar to the original audio.
