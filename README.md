@@ -1,10 +1,10 @@
 # Outline
-- [Jukebox]()
-- [Install]()
-- [Sampling]()
-- [Training]()
-- [Prior]()
-- [Fine-tune]()
+- [Jukebox](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#jukebox)
+- [Install](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#install)
+- [Sampling](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#sampling)
+- [Training](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#training)
+- [Prior](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#prior)
+- [Fine-tune](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#prior)
 
 
 
