@@ -18,11 +18,21 @@ Model the prior on vq codes conditioned on timing, artist, genre, lyrics and cod
 To condition on the timing, genre and artist, we use the LabelConditioner class
 To condition on the codes from the level above, we use the Conditioner class
 To condition on lyrics, we allow two types of priors:
-- Separate Encoder Decoder: This is the usual encoder-decoder style transformer. The encoder transformer autoregressively 
-models the lyrics, and we use its last layer to produce keys/values that are attened to by the decoder transformer
-- Single Encoder Decoder: This is a simplification where we combine them into a single model. We merge the text vocab 
-and VQ vocab into a single large vocab, and the lyric tokens and VQ tokens into a single longer sequence of tokens which 
-we autoregressively model together.
+    - Separate Encoder Decoder: This is the usual encoder-decoder style transformer. The encoder transformer autoregressively 
+      models the lyrics, and we use its last layer to produce keys/values that are attened to by the decoder transformer
+    - Single Encoder Decoder: This is a simplification where we combine them into a single model. We merge the text vocab 
+      and VQ vocab into a single large vocab, and the lyric tokens and VQ tokens into a single longer sequence of tokens which 
+      we autoregressively model together.
+
+タイミング、アーティスト、ジャンル、歌詞、上のレベルのコードを条件として、VQコードの事前モデルを作成します。
+タイミング、ジャンル、アーティストの条件付けには、LabelConditionerクラスを使用します。
+上のレベルからのコードを条件とするには、Conditionerクラスを使用します。
+歌詞を条件とするには、2種類のpriorsを使用します。
+    - Separate Encoder Decoder: これは通常のエンコーダ-デコーダ形式の変換器です。エンコーダー変換器は、歌詞を自己回帰的に 
+      歌詞をモデル化し、その最後の層を使って、デコーダトランスフォーマが注目するキー/値を生成する。
+    - Single Encoder Decoder: これは単純化して1つのモデルにまとめたものです。テキストボキャブラリーとVQボキャブラリーを1つにまとめます。
+      また、歌詞のトークンとVQのトークンを1つの長いトークンのシーケンスに統合し、これらを自己回帰的にモデル化します。
+      自己回帰モデルにまとめます。
 """
 class SimplePrior(nn.Module):
     def __init__(self, z_shapes, l_bins, encoder, decoder, level,

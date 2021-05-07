@@ -92,7 +92,7 @@ class FilesAudioDataset(Dataset):
         #print(f"test : {test}")  # for debug
 
         #print(f"current dir : {os.getcwd()}")
-        meta_dataset_path = "../dataset/meta_dataset/wav_lyrics_202104152324.csv"
+        meta_dataset_path = "/workspace/dataset/meta_dataset/wav_lyrics_202104152324.csv"
         df_meta = pd.read_csv(meta_dataset_path, encoding='cp932')
 
         artist = "ken hirai"
