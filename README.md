@@ -4,7 +4,7 @@
 - [Sampling](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#sampling)
 - [Training](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#training)
 - [Prior](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#prior)
-- [Fine-tune](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#prior)
+- [Fine-tune](https://github.com/kubokoHappy/Jukebox-kuboko/blob/main/README.md#fine-tune-pre-trained-top-level-prior-to-new-styles)
 
 
 
