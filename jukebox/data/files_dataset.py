@@ -8,6 +8,7 @@ from jukebox.utils.io import get_duration_sec, load_audio
 from jukebox.data.labels import Labeller
 import pandas as pd
 import os
+import json
 
 class FilesAudioDataset(Dataset):
     def __init__(self, hps):
@@ -85,23 +86,23 @@ class FilesAudioDataset(Dataset):
             piano piece.
         """
 
-        title_name = filename.split('/')[-1]  # ファイル名
+        title_name = filename.split('/')[-1]  # waveファイル名
 
-        #print(f"file name : {filename}")  # for debug
-        #print(f"title name : {title_name}")
-        #print(f"test : {test}")  # for debug
+        meta_dataset_path = "/workspace/dataset/wav_dataset_000/title_list.csv"
+        lyric_dataset_path = os.path.join("/workspace/dataset/wav_dataset_000/lyric_data", title_name[:-3])
 
-        #print(f"current dir : {os.getcwd()}")
-        meta_dataset_path = "/workspace/dataset/meta_dataset/wav_lyrics_202104152324.csv"
-        df_meta = pd.read_csv(meta_dataset_path, encoding='cp932')
+        df_meta = pd.read_csv(meta_dataset_path, encoding='utf-8')
 
-        artist = "ken hirai"
+        # artist
+        search_idx = df_meta.loc[df_meta.file_name==title_name].index[0]
+        artist = df_meta['artist_alphabet_name'][search_idx]
+        # genre
         genre = "j-pop"
+        # lyrics
+        with open(lyric_dataset_path) as f:
+            dict_lyric = json.load(f)
+        full_lyrics = dict_lyric["lyric_roma"]
 
-        full_lyrics = df_meta['lyric_roma'][df_meta.loc[df_meta.wav_path==title_name].index[0]]
-        # print(full_lyrics)
-
-        # return None, None, None
         return artist, genre, full_lyrics
 
     def get_song_chunk(self, index, offset, test=False):
