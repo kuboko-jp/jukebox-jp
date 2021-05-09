@@ -89,7 +89,7 @@ class FilesAudioDataset(Dataset):
         title_name = filename.split('/')[-1]  # waveファイル名
 
         meta_dataset_path = "/workspace/dataset/wav_dataset_000/title_list.csv"
-        lyric_dataset_path = os.path.join("/workspace/dataset/wav_dataset_000/lyric_data", title_name[:-3])
+        lyric_dataset_path = os.path.join("/workspace/dataset/wav_dataset_000/lyric_data", f"{title_name[:-4]}.json")
 
         df_meta = pd.read_csv(meta_dataset_path, encoding='utf-8')
 

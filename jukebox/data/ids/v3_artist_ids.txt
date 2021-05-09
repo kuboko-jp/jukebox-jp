@@ -336,7 +336,7 @@ michael christmas;335
 phobia;336
 jill tracy;337
 dilana;338
-royce da 5'9";339
+"royce da 5'9""";339
 les savy fav;340
 the blow;341
 kim wilde;342
@@ -466,7 +466,7 @@ the gothsicles;465
 david coverdale;466
 joe henry;467
 the human abstract;468
-alger "texas" alexander;469
+"alger ""texas"" alexander";469
 diane cluck;470
 fozzy;471
 zero 7;472
@@ -1422,7 +1422,7 @@ diddy;1421
 anacrusis;1422
 dropkick murphys;1423
 doyle bramhall;1424
-lisa "left eye" lopes;1425
+"lisa ""left eye"" lopes";1425
 ll cool j;1426
 deadsoul tribe;1427
 sunset rubdown;1428
@@ -1642,7 +1642,7 @@ joshua perahia;1641
 gallows;1642
 luxt;1643
 nick lowe;1644
-clarence "gatemouth" brown;1645
+"clarence ""gatemouth"" brown";1645
 sweet noise;1646
 thank you scientist;1647
 cherish the ladies;1648
@@ -1901,7 +1901,7 @@ fun boy three;1900
 circulatory system;1901
 the road hammers;1902
 brian mcknight;1903
-"weird al" yankovic;1904
+weird al yankovic;1904
 the wailers;1905
 kurupt;1906
 criminal;1907
@@ -6664,7 +6664,7 @@ demolition hammer;6663
 edguy;6664
 winds of plague;6665
 flatsound;6666
-james "j.t." taylor;6667
+"james ""j.t."" taylor";6667
 dave alvin;6668
 dimmu borgir;6669
 kreator;6670
@@ -7323,7 +7323,7 @@ cherry poppin' daddies;7322
 berlin;7323
 reverend bizarre;7324
 brazzaville;7325
-george "harmonica" smith;7326
+"george ""harmonica"" smith";7326
 garfunkel and oates;7327
 ashley tisdale;7328
 james mcmurtry;7329
@@ -7866,33 +7866,33 @@ andrea bocelli;7865
 tommy james and the shondells;7866
 malcolm middleton;7867
 suicide commando;7868
-mark owen;7869
-the string cheese incident;7870
-patti austin;7871
-jethro tull;7872
-jennifer lopez;7873
-dorothy;7874
-ayria;7875
-guru;7876
-burton cummings;7877
-the warren brothers;7878
-a1;7879
-cody jinks;7880
-billy squier;7881
-junius;7882
-never shout never;7883
-the cryan' shames;7884
-the heavy;7885
-myra hess;7886
-television;7887
-sadist;7888
-danger danger;7889
-clique girlz;7890
-jamie lawson;7891
-rosanne cash;7892
-walk off the earth;7893
-scorpions;7894
-kelly clarkson;7895
-ken hirai;0
-speaker;7896
-singer;7897
+beni;7869
+dreams come true;7870
+every little thing;7871
+juju;7872
+king gnu;7873
+man with a mission;7874
+mr . children;7875
+official higeotoko dism;7876
+superfly;7877
+yoasobi;7878
+back number;7879
+milet;7880
+ikimonogakari;7881
+yuzu;7882
+kobukuro;7883
+sukimasuitchi;7884
+supittsu;7885
+hitoto you;7886
+nakashimamika;7887
+utada hikaru;7888
+unomisako;7889
+ieiri reo;7890
+hirai ken;7891
+shibasaki kou;7892
+fukuharamiho;7893
+takeuchi mariya;7894
+yonezu kenshi;7895
+ayaka;0
+suda masaki;7896
+nishino kana;7897
