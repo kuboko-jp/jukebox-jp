@@ -19,6 +19,7 @@ MODELS = {
     '5b_lyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_5b_lyrics"),
     '1b_lyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics"),
     '1b_lyrics_finetuned_kenhirai': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetuned_kenhirai"),
+    '1b_lyrics_finetuned_1000': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetuned_1000"),
     #'your_model': ("you_vqvae_here", "your_upsampler_here", ..., "you_top_level_prior_here")
 }
 

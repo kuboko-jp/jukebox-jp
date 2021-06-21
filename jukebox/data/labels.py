@@ -50,8 +50,8 @@ class Labeller():
     def get_label(self, artist, genre, lyrics, total_length, offset):
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
-
         lyrics = self.text_processor.clean(lyrics)
+        print(f"【Cleaned lyrics】: {lyrics[:20]}")
         full_tokens = self.text_processor.tokenise(lyrics)
         tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
 

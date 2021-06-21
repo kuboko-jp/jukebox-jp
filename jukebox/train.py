@@ -200,7 +200,7 @@ def evaluate(model, orig_model, logger, metrics, data_processor, hps):
     logger.close_range()
     return {key: metrics.avg(f"test_{key}") for key in _metrics.keys()}
 
-def train(model, orig_model, opt, shd, scalar, ema, logger, metrics, data_processor, hps):
+def train(model, orig_model, opt, shd, scalar, ema, logger, metrics, data_processor, hps, epoch):
     model.train()
     orig_model.train()
     if hps.prior:
@@ -264,10 +264,12 @@ def train(model, orig_model, opt, shd, scalar, ema, logger, metrics, data_proces
 
         # Save checkpoint
         with t.no_grad():
-            if hps.save and (logger.iters % hps.save_iters == 1 or finished_training):
+            #if hps.save and (logger.iters % hps.save_iters == 1 or finished_training):
+            if hps.save:  # EpochごとにSave checkpoint
                 if ema is not None: ema.swap()
                 orig_model.eval()
-                name = 'latest' if hps.prior else f'step_{logger.iters}'
+                name = f'epoch{epoch}' if hps.prior else f'step_{logger.iters}'  # 各Epochごとにcheckpoint名を変更する
+                # name = 'latest' if hps.prior else f'step_{logger.iters}'
                 if dist.get_rank() % 8 == 0:
                     save_checkpoint(logger, name, orig_model, opt, dict(step=logger.iters), hps)
                 orig_model.train()
@@ -325,7 +327,7 @@ def run(hps="teeny", port=29500, **kwargs):
         metrics.reset()
         data_processor.set_epoch(epoch)
         if hps.train:
-            train_metrics = train(distributed_model, model, opt, shd, scalar, ema, logger, metrics, data_processor, hps)
+            train_metrics = train(distributed_model, model, opt, shd, scalar, ema, logger, metrics, data_processor, hps, epoch)
             train_metrics['epoch'] = epoch
             if rank == 0:
                 print('Train',' '.join([f'{key}: {val:0.4f}' for key,val in train_metrics.items()]))

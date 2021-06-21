@@ -86,10 +86,12 @@ class FilesAudioDataset(Dataset):
             piano piece.
         """
 
+        dir_name = "wav_dataset_004"
+
         title_name = filename.split('/')[-1]  # waveファイル名
 
-        meta_dataset_path = "/workspace/dataset/wav_dataset_000/title_list.csv"
-        lyric_dataset_path = os.path.join("/workspace/dataset/wav_dataset_000/lyric_data", f"{title_name[:-4]}.json")
+        meta_dataset_path = f"/workspace/dataset/{dir_name}/title_list.csv"
+        lyric_dataset_path = os.path.join(f"/workspace/dataset/{dir_name}/lyric_data", f"{title_name[:-4]}.json")
 
         df_meta = pd.read_csv(meta_dataset_path, encoding='utf-8')
 
@@ -101,7 +103,7 @@ class FilesAudioDataset(Dataset):
         # lyrics
         with open(lyric_dataset_path) as f:
             dict_lyric = json.load(f)
-        full_lyrics = dict_lyric["lyric_roma"]
+        full_lyrics = dict_lyric["lyric_hira"]
 
         return artist, genre, full_lyrics
 

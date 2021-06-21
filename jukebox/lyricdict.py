@@ -62,6 +62,207 @@ tai dare mo mina mondai wo dae te iru dakedo suteki na ashita wo negatsu te iru 
 fuka re te namikaze ga tatta sekai wo dore dake aisu ru koto ga dekiru daro u ？
 mou ichi kai mou ichi kai mou ichi kai mou ichi kai
 ''',
+
+'backnumber_happybirthday':'''
+itsuno ma ni yara hizuke ha ka watsu te
+na n de toshi tte to ru n daro u
+mou se ha no bi nai kuse ni
+chakushin no oto de to bi o ki ta kedo son shi ta na
+kun ka to omo tsu ta noni
+
+nani ka no techiga i de
+zu ki ni natsu te kure nai kana
+dou ni mo kimi no i nai basho ha
+kuuki ga usu ku te sa
+
+kudaranai hanashi ha omo i tsu ku noni
+kun wo da ki shi me te ii riyuu dake ga mitsu kara nai
+aa sou ka sou da yo na
+happii baasudee kataomo i no ore
+
+ai ga nani ka ha shi ra nai keredo
+zu ki to i u namae no ita mi ni nara kuwa shii kamo
+kun ni mo oshi e te age tai keredo kekkyoku
+oso waru no ha ore daro u
+
+konomama kyou ga o wari ashita ga ku re ba
+itsu ni natsu te mo chiji mara nai kono kyori wo
+ka ke hi ki ni mo tsunahi ki ni mo nara nai yari to ri wo
+motto tanjun na namae de yo ndeage rareru yo
+nani hitotsu o wa re nai kedo
+
+tsumaranai kotoba no ku ri kae shi de
+tsujitsuma mo kitto a tsu te nai monogatari no tsuzu ki ni
+hitoriyogari no mainichi ni
+happii baasudee
+kun ni i tsu te ho shii dake
+
+kudaranai hanashi ha omo i tsu ku noni
+kun wo da ki shi me te ii riyuu dake ga mitsu kara nai
+aa sou ka sou da yo na
+happii baasudee kataomo i no ore
+
+happii baasudee kataomo i no ore
+''',
+
+'unomisako_onelovepop':'''
+hai karorii de over
+mada o azu ke na cheesecake
+kira i na ranningu mashiin
+dore mo a eru made no my rule
+
+ahahah … saigo ha yuuki yo soushin botan
+ahahah … shuumatsu ha dou kana ？
+
+believe in you
+beddo ni surooin na ra nai denwa
+take a chance
+tenshon gata o chi ni supesharu ringu toon
+
+everyday everytime
+gen'in ha kimi to dea tsu te
+can't stop can't wait
+mata hade ni ochi chatsu ta n da
+this is like first love
+maybe this is last love
+
+ma chiawase be in time
+fuwari my best of wanpiisu
+imetore ha perfect
+yatto tado ri tsu i ta ne sunday
+
+ahahah … chekku shi ta rakkii ha teinto na rippu
+ahahah … seno bi shi te say hello !
+
+believe in me
+gouin na puranningu omotenashi
+get a chance
+tsugi no teema desu tsuta eyo ! loving you
+
+everyday everytime
+gen'in ha kimi to dea tsu te
+can't stop can't wait
+mata hade ni ochi chatsu ta n da
+this is like first love
+maybe this is last love
+
+i wanna be yours be yours be yours !
+come on !
+i say 1. 2. 3 . go !
+
+dou shi te mo na re nai haji meru koi no taimingu
+akira meyo u mo nai no kono tabi ha yoroshiku
+are you ready for this love ？
+
+hoso i yubi mo
+gen'in ha kimi ni aru tte
+koe mo egao mo
+motto su ki ni natsu ta n da
+
+everyday everytime
+gen'in ha kimi to dea tsu te
+can't stop can't wait
+mata hade ni ochi chatsu ta n da
+this is like first love
+maybe this is last love
+''',
+
+'DREAMS COME TRUE_miraiyosouzu2':'''
+sotsugyou shi te kara mou 3 dome no haru
+aikawarazu soba ni aru ona ji egao
+ano koro baiku de to bashi ta ie made no michi
+ima ha ruufu kara no hoshi wo mi nagara hashi tsu teru
+
+watashi wo o roshi ta ato kaku wo magaru made mioku ru to
+itsumo bureeki ranpu 5 kai tenmetsu
+a ・ i ・ shi ・ te ・ ru no sain
+
+kitto nannen tattemo kou shi te kawara nu kimo chi de
+su goshi te yu keru no ne anata to da kara
+zutto kokoro ni ega ku mirai yosou zu ha
+hora omo tsu ta toori ni kanae rare te ku
+
+tokidoki 2 nin de hira i te miru arubamu
+mada yancha na shashin tachi ni wara i nagara
+dorekurai ona ji jikan 2 nin de i ta kashira
+konna fuu ni sarigenaku su gi teku mainichi mo
+
+2 nin de baiku no metto 5 kai butsuke te ta ano aizu
+sain ka watsu ta ima mo ona ji kimo chi de
+sunao ni ai shi teru
+
+kitto nannen tattemo kou shi te kawara nu omo i wo
+mo tsu te i rareru no mo anata to da kara
+zutto kokoro ni ega ku mirai yosou zu ha
+hora omo tsu ta toori ni kanae rare te ku
+
+hora omo tsu ta toori ni kanae rare teku …
+''',
+
+'nishino kana_moshimounnmeinohitogairunonara':'''
+ichibun ichi byou ima kono shunkan mo
+sekai no dokoka de dare ka ga kitto
+koi ni o chi teku musu ba re te iku
+tatsu ta hitori no unmei no hito to
+
+kakkoyoku te sawa yaka de
+watashi yori mo se ga taka ku te
+egao ga suteki de Ah
+kiri ga nai risou kekkyoku ha
+su ki ni natsu ta hito ga taipu 
+sou iu mon desho
+
+sore demo mukashi kara
+zu ki na hito ni ha su ka re nai shi
+ii na to omo tsu ta hito ha
+koi hito ga iru wa
+
+moshimo unmei no hito ga iru no nara
+unmei no dea i ga aru nara
+anata ha ittai
+doko de yo ri michi shi te iru no kashira ？
+moshikashitara sugu chika ku ni iru ？
+soretomo haru ka umi no mu kou ？
+itsuka anata ga muka e ni ki te kureru
+sono hi made ma tsu te iru kara
+
+yappari yasa shii hito ga ii
+mochiron sore ha sou da kedo
+yasa shii dake ja Ah
+ore ni tsui te koi  to i wa re te mo
+dama tsu te ha tsuite i ke nai shi
+kore tte wagamama kana ？
+
+nakami ga daiji da tte
+shotaimen ja wa kara nai shi
+ikio i mo daiji da tte
+dakyou mo deki nai wa
+
+moshimo unmei no hito ga iru no nara
+unmei no dea i ga aru nara
+anata ha ittai
+itsu ni nare ba tado ri tsu ku no kashira ？
+urana i de ha kinou no hazu da kedo
+ashita ka asatte ka rainen kana ？
+itsuka anata ga muka e ni ki te kureru
+sono hi made ma tsu te iru kara
+
+ichibun ichi byou ima kono shunkan mo
+unmei no sono toki ni chika zui teru
+yume wo mi te iru itsuka anata to
+tatsu ta hitori no unmei no hito to
+
+moshimo unmei no hito ga iru no nara
+unmei no dea i ga aru nara
+anata ha ittai
+doko de yo ri michi shi te iru no kashira ？
+watashi nara zutto koko ni iru yo
+sorosoro ma chikutabireru koro
+fuu no uwasa de ha mata dare ka ga
+unmei no hito ni dea tsu ta mitai
+anata ga muka e ni ki te kureru
+sono hi made yappari … ma te nai wa
+''',
 }
 # -------------------------------------------------------------
 

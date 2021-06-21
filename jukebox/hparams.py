@@ -215,6 +215,32 @@ prior_1b_lyrics_finetuned_kenhirai = Hyperparams(
 prior_1b_lyrics_finetuned_kenhirai.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetuned_kenhirai"] = prior_1b_lyrics_finetuned_kenhirai
 # ------------------------------------------------------------------------------------
+prior_1b_lyrics_finetuned_1000 = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    restore_prior="/workspace/logs/finetuned_1000_20210510/checkpoint_latest.pth.tar",
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+)
+prior_1b_lyrics_finetuned_1000.update(labels_v3)
+HPARAMS_REGISTRY["prior_1b_lyrics_finetuned_1000"] = prior_1b_lyrics_finetuned_1000
+# ------------------------------------------------------------------------------------
+
 
 # Small models
 small_vqvae = Hyperparams(
@@ -283,6 +309,61 @@ small_single_enc_dec_prior = Hyperparams(
     n_vocab=79,
 )
 HPARAMS_REGISTRY["small_single_enc_dec_prior"] = small_single_enc_dec_prior
+
+# ------------------------------------------------------------------------------------------------
+# --- 日本語用に追加 ---
+small_single_enc_dec_prior_jp = Hyperparams(
+    n_ctx=6144,
+    prior_width=1024,
+    prior_depth=48,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.7,
+    c_res=1,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    labels=True,
+    labels_v3=True,
+    y_bins=(604,7898), # Set this to (genres, artists) for your dataset
+    max_bow_genre_size=1,
+    min_duration=60.0,
+    max_duration=600.0,
+    t_bins=64,
+    use_tokens=True,
+    n_tokens=384,
+    n_vocab=160,  # 日本語用に追加
+)
+HPARAMS_REGISTRY["small_single_enc_dec_prior_jp"] = small_single_enc_dec_prior_jp
+
+
+prior_1b_jp = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+    y_bins=(604, 7898),  # (genres_n, artists_n)
+    t_bins=64,
+    max_bow_genre_size=1,
+    n_vocab=160,
+)
+HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
+# ------------------------------------------------------------------------------------------------
 
 small_sep_enc_dec_prior = Hyperparams(
     n_ctx=6144,
