@@ -44,11 +44,18 @@ def save_checkpoint(logger, name, model, opt, metrics, hps):
     with t.no_grad():
         save_hps = {**hps}
         save_hps = {k: v for k,v in save_hps.items() if k not in ['metadata_v2','metadata_v3', 'alignments', 'lyric_processor', 'midi_processor']}
+        # Name is 'each epoch'
         t.save({'hps': save_hps,
                 'model': model.state_dict(), # should also save bottleneck k's as buffers
                 'opt': opt.state_dict() if opt is not None else None,
                 'step': logger.iters,
                 **metrics}, f'{logger.logdir}/checkpoint_{name}.pth.tar')
+        # Name is 'latest'
+        t.save({'hps': save_hps,
+                'model': model.state_dict(), # should also save bottleneck k's as buffers
+                'opt': opt.state_dict() if opt is not None else None,
+                'step': logger.iters,
+                **metrics}, f'{logger.logdir}/checkpoint_latest.pth.tar')
     return
 
 def restore_model(hps, model, checkpoint_path):
