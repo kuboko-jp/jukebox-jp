@@ -38,9 +38,11 @@ class SimplePrior(nn.Module):
     def __init__(self, z_shapes, l_bins, encoder, decoder, level,
                  downs_t, strides_t, labels, prior_kwargs, x_cond_kwargs, y_cond_kwargs,
                  prime_kwargs, copy_input, labels_v3=False,
-                 merged_decoder=False, single_enc_dec=False):
+                 merged_decoder=False, single_enc_dec=False, jp_lyrics=False):
         super().__init__()
 
+        self.jp_lyrics = jp_lyrics
+        
         self.use_tokens = prime_kwargs.pop('use_tokens')
         self.n_tokens = prime_kwargs.pop('n_tokens')
         self.prime_loss_fraction = prime_kwargs.pop('prime_loss_fraction')

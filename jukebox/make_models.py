@@ -160,6 +160,8 @@ def make_prior(hps, vqvae, device='cuda'):
     rescale = lambda z_shape: (z_shape[0]*hps.n_ctx//vqvae.z_shapes[hps.level][0],)
     z_shapes = [rescale(z_shape) for z_shape in vqvae.z_shapes]
 
+    print(f"【hps.jp_lyrics】 : {hps.jp_lyrics}")
+
     prior = SimplePrior(z_shapes=z_shapes,
                         l_bins=vqvae.l_bins,
                         encoder=vqvae.encode,
@@ -175,7 +177,9 @@ def make_prior(hps, vqvae, device='cuda'):
                         copy_input=hps.copy_input,
                         labels_v3=hps.labels_v3,
                         merged_decoder=hps.merged_decoder,
-                        single_enc_dec=hps.single_enc_dec)
+                        single_enc_dec=hps.single_enc_dec,
+                        jp_lyrics=hps.jp_lyrics,
+                        )
 
     prior.alignment_head = hps.get('alignment_head', None)
     prior.alignment_layer = hps.get('alignment_layer', None)

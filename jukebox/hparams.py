@@ -649,6 +649,7 @@ DEFAULTS["train_test_eval"] = Hyperparams(
     break_train=1e10,
     break_test=1e10,
     exit_train=1e10,
+    jp_lyrics=False,
 )
 
 DEFAULTS["audio"] = Hyperparams(
