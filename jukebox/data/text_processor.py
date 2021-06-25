@@ -2,10 +2,18 @@ import re
 from unidecode import unidecode
 
 class TextProcessor():
-    def __init__(self, v3=False):
+    def __init__(self, v3=False, jp=False):
         if v3:
-            vocab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-\'\"()[] \t\n'
-            not_vocab = re.compile('[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n]+')
+            if jp:
+                jp_vocab = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉゃゅょっ"
+                vocab = f'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+\'\"()[] \t\n{jp_vocab}'
+                not_vocab = re.compile(f'[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n{jp_vocab}]+')
+            else:
+                vocab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-\'\"()[] \t\n'
+                not_vocab = re.compile('[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n]+')
+            print("--------------------------------------")
+            print(f"【n_vocab】 : {len(vocab) + 1}")
+            print("--------------------------------------")
         else:
             vocab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+\'\"()[] \t\n'
             not_vocab = re.compile('[^A-Za-z0-9.,:;!?\-+\'\"()\[\] \t\n]+')

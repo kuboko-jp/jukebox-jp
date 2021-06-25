@@ -140,7 +140,7 @@ class SimplePrior(nn.Module):
         self.sample_length = self.n_ctx*self.raw_to_tokens
         if labels:
             self.labels_v3 = labels_v3
-            self.labeller = Labeller(self.y_emb.max_bow_genre_size, self.n_tokens, self.sample_length, v3=self.labels_v3)
+            self.labeller = Labeller(self.y_emb.max_bow_genre_size, self.n_tokens, self.sample_length, v3=self.labels_v3, jp=self.jp_lyrics)
         else:
             self.labeller = EmptyLabeller()
 

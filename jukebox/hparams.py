@@ -333,6 +333,7 @@ small_single_enc_dec_prior_jp = Hyperparams(
     use_tokens=True,
     n_tokens=384,
     n_vocab=160,  # 日本語用に追加
+    jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
 )
 HPARAMS_REGISTRY["small_single_enc_dec_prior_jp"] = small_single_enc_dec_prior_jp
 
@@ -361,6 +362,7 @@ prior_1b_jp = Hyperparams(
     t_bins=64,
     max_bow_genre_size=1,
     n_vocab=160,
+    jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------
