@@ -23,7 +23,7 @@ RUN pip install --upgrade pip && \
 ENV CONDA_DEFAULT_ENV jukebox && \
     PATH /opt/conda/envs/jukebox/bin:$PATH
 
-WORKDIR /
+WORKDIR /workspace
 
 CMD ["/bin/bash"]
 
