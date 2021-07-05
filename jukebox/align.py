@@ -88,7 +88,7 @@ def save_alignment(model, device, hps):
 
     logdir = f"{hps.logdir}/level_{0}"
     data = t.load(f"{logdir}/data.pth.tar")
-    if model == '1b_lyrics':
+    if '1b_lyrics' in model:
         fp16 = False
     else:
         fp16 = True

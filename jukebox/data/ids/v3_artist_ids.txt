@@ -1,3 +1,146 @@
 unknown;0
-sazan'oorusutaazu;1
-bikkeburanka;2
+04 limited sazabys;1
+aaa;2
+ai;3
+akb 48;4
+asian kung-fu generation;5
+aimer;6
+aqua timez;7
+awesome city club;8
+beni;9
+blue encount;10
+bump of chicken;11
+chico with honeyworks;12
+creepy nuts;13
+da pump;14
+dreams come true;15
+da-ice;16
+e-girls;17
+egoist;18
+exile;19
+every little thing;20
+funky monkey babys;21
+generations from exile tribe;22
+glay;23
+greeeen;24
+hy;25
+hey ! say ! jump;26
+hilcrhyme;27
+juju;28
+kana-boon;29
+kat-tun;30
+king & prince;31
+king gnu;32
+l'arc ~ en ~ ciel;33
+little glee monster;34
+man with a mission;35
+misia;36
+monkey majik;37
+my first story;38
+may j;39
+mr . children;40
+mrs . green apple;41
+news;42
+nico touches the walls;43
+nissy;44
+novelbright;45
+one ok rock;46
+orange range;47
+official higeotoko dism;48
+perfume;49
+radwimps;50
+rin oto;51
+sekai no owari;52
+she's;53
+shishamo;54
+smap;55
+spyair;56
+super beaver;57
+saucy dog;58
+shuta sueyoshi;59
+superfly;60
+the oral cigarettes;61
+the rampage from exile tribe;62
+unison square garden;63
+uverworld;64
+uru;65
+wanima;66
+yoasobi;67
+yui;68
+yuki;69
+[ alexandros ];70
+aiko;71
+back number;72
+indigo la end;73
+milet;74
+miwa;75
+sumika;76
+wacci;77
+ai myon;78
+ikimonogakari;79
+kyariipamyupamyu;80
+sayuri;81
+chan mina;82
+momoiro kuroobaa z;83
+yuzu;84
+kuriipuhaipu;85
+ketsumeishi;86
+gesuno kiwami otome .;87
+kobukuro;88
+sakanakushon;89
+sazan'oorusutaazu;90
+sanbomasutaa;91
+sukimasuitchi;92
+supittsu;93
+chattomonchii;94
+naoto ・ inteiraimi;95
+hachi;96
+bikkeburanka;97
+fujifaburikku;98
+poruno gurafitei;99
+makaroni enpitsu;100
+yabai t shatsu ya san;101
+yoru shika;102
+remioromen;103
+hitoto you;104
+san daime j soul brothers from exile tribe;105
+miura daichi;106
+nakashimamika;107
+nogizaka 46;108
+kouda kumi;109
+katou miriya;110
+yoshioka kiyoe;111
+ooharasakurako;112
+ootsuka ai;113
+jooubachi;114
+utada hikaru;115
+unomisako;116
+amuro namie;117
+ieiri reo;118
+arashi;119
+hirai ken;120
+hiraidai;121
+saitoukazuyoshi;122
+hoshinogen;123
+kimura kaera;124
+toukyoujihen;125
+matsuda seiko;126
+shibasaki kou;127
+kuwata keisuke;128
+shiina ringo;129
+keyakizaka 46;130
+hamasaki ayumi;131
+shimizushouta;132
+shounannokaze;133
+akira jin;134
+fukuharamiho;135
+fukuyama masaharu;136
+hatamotohiro;137
+takeuchi mariya;138
+yonezu kenshi;139
+ayaka;140
+suda masaki;141
+nishino kana;142
+kan jani ∞;143
+abemao;144
+aoyama teruma;145
