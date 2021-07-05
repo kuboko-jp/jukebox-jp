@@ -86,7 +86,7 @@ class FilesAudioDataset(Dataset):
             piano piece.
         """
 
-        dir_name = "wav_dataset_004"
+        dir_name = "wav_dataset_005"
 
         title_name = filename.split('/')[-1]  # waveファイル名
 
