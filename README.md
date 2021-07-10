@@ -212,7 +212,7 @@ MODELS = {
 ```
 
 Next, in `hparams.py`, we add them to the registry with the corresponding `restore_paths` and any other command line options used during training. Another important note is that for top-level priors with lyric conditioning, we have to locate a self-attention layer that shows alignment between the lyric and music tokens. Look for layers where `prior.prior.transformer._attn_mods[layer].attn_func` is either 6 or 7. If your model is starting to sing along lyrics, it means some layer, head pair has learned alignment. Congrats!<br>
-次に，`hparams.p`yにおいて，対応する`restore_paths`や学習時に使用された他のコマンドラインオプションとともに，それらをレジストリに追加します．もう1つの重要な注意点は、歌詞の条件付けを行うトップレベルプライヤーの場合、歌詞と音楽のトークンの間のアライメントを示す自己吸着層を見つけなければならないということです。`prior.prior.transformer._attn_mods[layer].attn_func`が6か7のレイヤーを探します。もしモデルが歌詞を歌い始めたら、それはあるレイヤー、ヘッドペアがアライメントを学習したことを意味します。おめでとうございます。
+次に，`hparams.py`において，対応する`restore_paths`や学習時に使用された他のコマンドラインオプションとともに，それらをレジストリに追加します．もう1つの重要な注意点は、歌詞の条件付けを行うトップレベルプライヤーの場合、歌詞と音楽のトークンの間のアライメントを示す自己吸着層を見つけなければならないということです。`prior.prior.transformer._attn_mods[layer].attn_func`が6か7のレイヤーを探します。もしモデルが歌詞を歌い始めたら、それはあるレイヤー、ヘッドペアがアライメントを学習したことを意味します。おめでとうございます。
 ```
 my_small_vqvae = Hyperparams(
     restore_vqvae='/path/to/jukebox/logs/small_vqvae/checkpoint_some_step.pth.tar',
