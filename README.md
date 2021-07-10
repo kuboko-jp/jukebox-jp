@@ -211,7 +211,7 @@ MODELS = {
 }
 ```
 
-Next, in `hparams.py`, we add them to the registry with the corresponding `restore_`paths and any other command line options used during training. Another important note is that for top-level priors with lyric conditioning, we have to locate a self-attention layer that shows alignment between the lyric and music tokens. Look for layers where `prior.prior.transformer._attn_mods[layer].attn_func` is either 6 or 7. If your model is starting to sing along lyrics, it means some layer, head pair has learned alignment. Congrats!<br>
+Next, in `hparams.py`, we add them to the registry with the corresponding `restore_paths` and any other command line options used during training. Another important note is that for top-level priors with lyric conditioning, we have to locate a self-attention layer that shows alignment between the lyric and music tokens. Look for layers where `prior.prior.transformer._attn_mods[layer].attn_func` is either 6 or 7. If your model is starting to sing along lyrics, it means some layer, head pair has learned alignment. Congrats!<br>
 次に、`hparams.py`の中で、`restore_paths`やトレーニング中に使用されたその他のコマンドラインオプションに対応する`hparams.py`をレジストリに追加します。
 もう一つの重要な注意点は、歌詞条件付けを伴うトップレベルのプリオールについては、歌詞とミュージックトークンの間のアライメントを示す自己注意層を見つけなければならないということです。
 `prior.previous.transformer._attn_mods[layer].attn_func`が6か7のレイヤを探してください。あなたのモデルが歌詞に沿って歌い始めたら、それはあるレイヤー、ヘッドペアがアライメントを学習したことを意味します。
