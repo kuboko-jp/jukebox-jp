@@ -197,7 +197,7 @@ def save_samples(model, device, hps, sample_hps):
 
 
     metas = input_meta(offset=offset, total_length=total_length)
-    #pprint(metas)
+    pprint(metas)
         
 
     """
