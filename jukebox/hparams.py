@@ -257,7 +257,7 @@ prior_1b_lyrics_finetune_roma_11708 = Hyperparams(
     n_tokens=384,
     prime_loss_fraction=0.4,
     single_enc_dec=True,
-    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_24.pth.tar",
+    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_47.pth.tar",
     fp16_params=False,
     alignment_layer=63,
     alignment_head=0,
@@ -388,7 +388,7 @@ prior_1b_jp = Hyperparams(
     max_bow_genre_size=1,
     n_vocab=160,
     jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
-    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708/checkpoint_epoch_9.pth.tar',
+    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708/checkpoint_epoch_60.pth.tar',
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------
