@@ -144,3 +144,6 @@ logs/
 dataset/
 
 core
+
+# Samples
+*/samples/
