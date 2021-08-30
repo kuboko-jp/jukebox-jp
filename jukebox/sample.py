@@ -196,8 +196,9 @@ def save_samples(model, device, hps, sample_hps):
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
 
 
-    metas = input_meta(offset=offset, total_length=total_length)
-    pprint(metas)
+    metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=False,
+                        base_dir='/workspace/dataset/wav_dataset_005/',)
+    #pprint(metas)
         
 
     """
