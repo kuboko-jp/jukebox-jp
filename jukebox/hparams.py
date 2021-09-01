@@ -214,7 +214,7 @@ prior_1b_lyrics_finetuned_kenhirai = Hyperparams(
 )
 prior_1b_lyrics_finetuned_kenhirai.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetuned_kenhirai"] = prior_1b_lyrics_finetuned_kenhirai
-# ------------------------------------------------------------------------------------
+
 prior_1b_lyrics_finetuned_1000 = Hyperparams(
     level=2,
     n_ctx=6144,
@@ -239,6 +239,31 @@ prior_1b_lyrics_finetuned_1000 = Hyperparams(
 )
 prior_1b_lyrics_finetuned_1000.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetuned_1000"] = prior_1b_lyrics_finetuned_1000
+
+prior_1b_lyrics_finetune_roma_11708 = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_50.pth.tar",
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+)
+prior_1b_lyrics_finetune_roma_11708.update(labels_v3)
+HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_11708"] = prior_1b_lyrics_finetune_roma_11708
 # ------------------------------------------------------------------------------------
 
 

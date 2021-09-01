@@ -103,7 +103,7 @@ class FilesAudioDataset(Dataset):
         # lyrics
         with open(lyric_dataset_path) as f:
             dict_lyric = json.load(f)
-        full_lyrics = dict_lyric["lyric_hira"]
+        full_lyrics = dict_lyric["lyric_roma"]
 
         return artist, genre, full_lyrics
 
