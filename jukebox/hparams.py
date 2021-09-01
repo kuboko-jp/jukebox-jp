@@ -108,7 +108,7 @@ prior_5b = Hyperparams(
     heads=8,
     attn_order=2,
     blocks=128,
-    init_scale=0.1,
+   init_scale=0.1,
     c_res=1,
     beta2=0.925,
     min_duration=60.0,
@@ -382,13 +382,15 @@ prior_1b_jp = Hyperparams(
     single_enc_dec=True,
     fp16_params=False,
     alignment_layer=63,
+    #alignment_layer=50,
     alignment_head=0,
+    #alignment_head=1,
     y_bins=(1, 146),  # (genres_n, artists_n)
     t_bins=64,
     max_bow_genre_size=1,
     n_vocab=160,
     jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
-    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708/checkpoint_epoch_9.pth.tar',
+    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708/checkpoint_epoch_103.pth.tar',
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------

@@ -4,14 +4,51 @@
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
+        {
+            "name": "sample_align",
+            "type": "python",
+            "request": "launch",
+            "program": "jukebox/sample.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                
+            ]
+        },
+        {
+            "name": "Check lyric align train.py",
+            "type": "python",
+            "request": "launch",
+            "program": "/workspace/jukebox/train.py",
+            "console": "integratedTerminal",
+            "justMyCode": false, // false: 外部モジュールに対してもデバッグする
+            "args": [
+                "--jp_lyrics",
+                "--hps=vqvae,prior_1b_jp,all_fp16,cpu_ema",
+                "--name=pretrained_vqvae_prior_1b_jp_check_align",
+                "--sample_length=786432",
+                "--bs=1",
+                "--aug_shift",
+                "--aug_blend",
+                "--audio_files_dir=/workspace/dataset/wav_dataset_005/wav_data",
+                "--labels=True",
+                "--train",
+                "--test",
+                "--prior",
+                "--levels=3",
+                "--level=2",
+                "--weight_decay=0.01",
+                "--save_iters=1000",
+                "--epochs=3"
+            ]
+        },
         {
             "name": "/jukebox/train",
             "type": "python",
             "request": "launch",
             "program": "/workspace/jukebox/train.py",
             "console": "integratedTerminal",
-            "justMyCode": false,    // false: 外部モジュールに対してもデバッグする
+            "justMyCode": false, // false: 外部モジュールに対してもデバッグする
             "args": [
                 "--hps=vqvae,prior_1b_jp,all_fp16,cpu_ema",
                 "--name=pretrained_vqvae_prior_1b_jp_debug",
@@ -30,6 +67,6 @@
                 "--save_iters=1000",
                 "--epochs=3"
             ]
-        }
+        },
     ]
 }
