@@ -197,7 +197,7 @@ def save_samples(model, device, hps, sample_hps):
 
 
     metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=False,
-                        base_dir='/workspace/dataset/wav_dataset_005/',)
+                        base_dir='/workspace/dataset/wav_dataset_005/', jp=False)
     #pprint(metas)
         
 

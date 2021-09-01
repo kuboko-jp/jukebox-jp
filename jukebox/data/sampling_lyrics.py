@@ -5,7 +5,7 @@ import json
 from pprint import pprint
 
 def input_meta(offset:int, total_length:int, input_new_lyric=True, 
-               base_dir='/workspace/dataset/wav_dataset_005/') -> list:
+               base_dir='/workspace/dataset/wav_dataset_005/', jp=False) -> list:
     """
     サンプリング時に入力するメタ情報を指定
     
@@ -39,7 +39,8 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
             lyric_path = os.path.join(base_dir, "lyric_data", f"{lyric_file_name}.json")
         with open(lyric_path, mode='r', encoding='utf-8') as f:
             lyric = json.load(f)
-        input_lyric = lyric['lyric_hira']
+        lyric_lang = 'lyric_hira' if jp==True else 'lyric_roma'
+        input_lyric = lyric[lyric_lang]
 
         dic_sample = dict(artist=artist_alphabet_name, genre="j-pop",
                           lyrics=input_lyric, total_length=total_length, offset=offset,)
