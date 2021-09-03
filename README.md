@@ -297,7 +297,7 @@ For training with lyrics, we'll use `small_single_enc_dec_prior` in `hparams.py`
   `n_vocab = number of characters in vocabulary` accordingly in `small_single_enc_dec_prior`. In v2, we had a `n_vocab=80` 
   and in v3 we missed `+` and so `n_vocab=79` of characters. 
 - 歌詞 
-  - 各ファイルについて、歌詞の文字を音声に合わせて直線的に配置し、歌詞の中で をオーディオチャンクの中点に設定し、そこを中心とした `n_tokens` のリリック文字のウィンドウを渡す。
+  - 各ファイルについて、歌詞の文字をオーディオに線形に合わせ、オーディオチャンクの中間点に対応する歌詞の位置を見つけ、その位置を中心に`n_tokens`個の歌詞の文字のウィンドウを渡します。
   - `small_single_enc_dec_prior` で、`use_tokens=True` と `n_tokens` にオーディオチャンクに使用するリリック文字の数を設定する。これを `sample_length` に合わせて設定することで、音声チャンクの歌詞がほとんどの場合、そのサイズのウィンドウ内に収まるようになります。
   - 英語以外の語彙を使う場合は、`text_processor.py` を新しい語彙で更新し、`small_single_enc_dec_prior` で `n_vocab = 語彙の文字数` を適宜設定してください。v2では `n_vocab=80` としていました。v3では `+` を見落としていたため、`n_vocab=79` の文字が出てきてしまいました。
 
