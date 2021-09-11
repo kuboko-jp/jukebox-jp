@@ -3,7 +3,8 @@ FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
 RUN apt-get update && apt-get install -y \
     sudo \
     wget \
-    vim
+    vim \
+    git
 WORKDIR /opt
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \

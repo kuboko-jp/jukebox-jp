@@ -54,7 +54,7 @@ class Labeller():
         # print(f"【Cleaned lyrics】: {lyrics[:20]}")
         full_tokens = self.text_processor.tokenise(lyrics)
         #print(f"【full_tokens】: {full_tokens[:10]}")
-        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
+        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)  # Audio chunkに対応する歌詞トークンを取得
         #print(f"【relevant_tokens】: {tokens[:10]}")
 
         assert len(genre_ids) <= self.max_genre_words
