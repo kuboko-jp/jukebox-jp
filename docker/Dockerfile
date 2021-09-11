@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
+FROM tensorflow/tensorflow
 
 RUN apt-get update && apt-get install -y \
     sudo \
