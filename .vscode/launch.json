@@ -5,17 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "sample_align",
-            "type": "python",
-            "request": "launch",
-            "program": "jukebox/sample.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,
-            "args": [
-                
-            ]
-        },
-        {
             "name": "Check lyric align train.py",
             "type": "python",
             "request": "launch",

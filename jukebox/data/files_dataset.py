@@ -85,27 +85,18 @@ class FilesAudioDataset(Dataset):
             example, ("unknown", "classical", "") could be a metadata for a
             piano piece.
         """
-
-        dir_name = "wav_dataset_005"
-
-        title_name = filename.split('/')[-1]  # waveファイル名
-
-        meta_dataset_path = f"/workspace/dataset/{dir_name}/title_list.csv"
-        lyric_dataset_path = os.path.join(f"/workspace/dataset/{dir_name}/lyric_data", f"{title_name[:-4]}.json")
-
+        title_name = filename.split('/')[-1][:-4]  # ファイル名(例: "AAA_恋音と雨空")
+        meta_dataset_path = "dataset/wav_dataset_006/title_genre_list.csv"
         df_meta = pd.read_csv(meta_dataset_path, encoding='utf-8')
-
         # artist
         search_idx = df_meta.loc[df_meta.file_name==title_name].index[0]
-        artist = df_meta['artist_alphabet_name'][search_idx]
+        artist = df_meta.loc[search_idx, 'artist_alphabet_name']
         # genre
-        genre = "j-pop"
+        genre = df_meta.loc[search_idx, 'genre']
         # lyrics
-        with open(lyric_dataset_path) as f:
-            dict_lyric = json.load(f)
-        full_lyrics = dict_lyric["lyric_roma"]
-
-        return artist, genre, full_lyrics
+        lyric_dataset_path = os.path.join("dataset/wav_dataset_006/aligned_lyric_csv", f"{title_name}.csv")
+        lyrics_df = pd.read_csv(lyric_dataset_path, encoding='utf-8')
+        return artist, genre, lyrics_df
 
     def get_song_chunk(self, index, offset, test=False):
         filename, total_length = self.files[index], self.durations[index]

@@ -29,15 +29,16 @@ def load_audio(file, sr, offset, duration, resample=True, approx=False, time_bas
     # Loads at target sr, stereo channels, seeks from offset, and stops after duration
     container = av.open(file)
     audio = container.streams.get(audio=0)[0] # Only first audio stream
-    audio_duration = audio.duration * float(audio.time_base)
+    audio_duration = audio.duration * float(audio.time_base)  # 対象(file)とする曲全体の長さ(単位/sec)
     if approx:
         if offset + duration > audio_duration*sr:
             # Move back one window. Cap at audio_duration
             offset = np.min(audio_duration*sr - duration, offset - duration)
-    else:
+    else:  # Training時はこちら
         if check_duration:
             assert offset + duration <= audio_duration*sr, f'End {offset + duration} beyond duration {audio_duration*sr}'
     if resample:
+        # A new AudioFrame in new parameters, or the same frame if there is nothing to be done.
         resampler = av.AudioResampler(format='fltp',layout='stereo', rate=sr)
     else:
         assert sr == audio.sample_rate
@@ -59,7 +60,7 @@ def load_audio(file, sr, offset, duration, resample=True, approx=False, time_bas
         if total_read == duration:
             break
     assert total_read <= duration, f'Expected {duration} frames, got {total_read}'
-    return sig, sr
+    return sig, sr  # (data, sr)
 
 def test_simple_loader():
     import librosa

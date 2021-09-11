@@ -126,6 +126,11 @@ if __name__ == '__main__':
     label = labeller.get_label("Alan Jackson", "Country Rock", "old town road", 4*60*44100, 0)
     print(label, labeller.describe_label(label['y']))
 
+    labeller = Labeller(1, 384, 6144*8*4*4, v3=True, jp=True)
+    lyrics = '誰もが皆平行線 そんな淡い純心も 不完全な生命 生きる意味を殺した'
+    label = labeller.get_label("Alan Jackson", "Country Rock", lyrics=lyrics, total_length=4*60*44100, offset=0)
+    print(label, labeller.describe_label(label['y']))
+
 
 
 
