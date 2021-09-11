@@ -9,9 +9,14 @@ def get_duration_sec(file, cache=False):
             duration = float(f.readline().strip('\n'))
         return duration
     except:
-        container = av.open(file)
-        audio = container.streams.get(audio=0)[0]
-        duration = audio.duration * float(audio.time_base)
+        try:
+            container = av.open(file)
+            audio = container.streams.get(audio=0)[0]
+            duration = audio.duration * float(audio.time_base)
+        except:  # エラー回避のために追加
+            # ファイル名に日本語が入っていると、エラーになる気がする。
+            print(f"Since we cannot get the length of {file}, we will set it to 240sec instead.")
+            duration = float(240.0)
         if cache:
             with open(file + '.dur', 'w') as f:
                 f.write(str(duration) + '\n')

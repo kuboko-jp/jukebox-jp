@@ -19,6 +19,10 @@ MODELS = {
     '5b_lyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_5b_lyrics"),
     '1b_lyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics"),
     '1b_lyrics_finetuned_kenhirai': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetuned_kenhirai"),
+    '1b_lyrics_finetuned_1000': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetuned_1000"),
+    '1b_lyrics_jp_35': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
+    '1b_lyrics_jp_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
+    '1b_lyrics_finetune_roma_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetune_roma_11708"),
     #'your_model': ("you_vqvae_here", "your_upsampler_here", ..., "you_top_level_prior_here")
 }
 
@@ -43,11 +47,20 @@ def save_checkpoint(logger, name, model, opt, metrics, hps):
     with t.no_grad():
         save_hps = {**hps}
         save_hps = {k: v for k,v in save_hps.items() if k not in ['metadata_v2','metadata_v3', 'alignments', 'lyric_processor', 'midi_processor']}
+        # Name is 'each epoch'
         t.save({'hps': save_hps,
                 'model': model.state_dict(), # should also save bottleneck k's as buffers
                 'opt': opt.state_dict() if opt is not None else None,
                 'step': logger.iters,
                 **metrics}, f'{logger.logdir}/checkpoint_{name}.pth.tar')
+        """
+        # Name is 'latest'
+        t.save({'hps': save_hps,
+                'model': model.state_dict(), # should also save bottleneck k's as buffers
+                'opt': opt.state_dict() if opt is not None else None,
+                'step': logger.iters,
+                **metrics}, f'{logger.logdir}/checkpoint_latest.pth.tar')
+        """
     return
 
 def restore_model(hps, model, checkpoint_path):
@@ -152,6 +165,8 @@ def make_prior(hps, vqvae, device='cuda'):
     rescale = lambda z_shape: (z_shape[0]*hps.n_ctx//vqvae.z_shapes[hps.level][0],)
     z_shapes = [rescale(z_shape) for z_shape in vqvae.z_shapes]
 
+    print(f"【hps.jp_lyrics】 : {hps.jp_lyrics}")
+
     prior = SimplePrior(z_shapes=z_shapes,
                         l_bins=vqvae.l_bins,
                         encoder=vqvae.encode,
@@ -167,7 +182,9 @@ def make_prior(hps, vqvae, device='cuda'):
                         copy_input=hps.copy_input,
                         labels_v3=hps.labels_v3,
                         merged_decoder=hps.merged_decoder,
-                        single_enc_dec=hps.single_enc_dec)
+                        single_enc_dec=hps.single_enc_dec,
+                        jp_lyrics=hps.jp_lyrics,
+                        )
 
     prior.alignment_head = hps.get('alignment_head', None)
     prior.alignment_layer = hps.get('alignment_layer', None)

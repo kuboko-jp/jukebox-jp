@@ -39,9 +39,9 @@ class EmptyLabeller():
         return dict(y=ys, info=infos)
 
 class Labeller():
-    def __init__(self, max_genre_words, n_tokens, sample_length, v3=False):
+    def __init__(self, max_genre_words, n_tokens, sample_length, v3=False, jp=False):
         self.ag_processor = ArtistGenreProcessor(v3)
-        self.text_processor = TextProcessor(v3)
+        self.text_processor = TextProcessor(v3, jp)
         self.n_tokens = n_tokens
         self.max_genre_words = max_genre_words
         self.sample_length = sample_length
@@ -50,10 +50,12 @@ class Labeller():
     def get_label(self, artist, genre, lyrics, total_length, offset):
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
-
         lyrics = self.text_processor.clean(lyrics)
+        # print(f"【Cleaned lyrics】: {lyrics[:20]}")
         full_tokens = self.text_processor.tokenise(lyrics)
-        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
+        #print(f"【full_tokens】: {full_tokens[:10]}")
+        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)  # Audio chunkに対応する歌詞トークンを取得
+        #print(f"【relevant_tokens】: {tokens[:10]}")
 
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
@@ -116,11 +118,11 @@ class Labeller():
 
 
 if __name__ == '__main__':
-    labeller = Labeller(5, 512, 8192*8*4*4, v3=False)
+    labeller = Labeller(5, 512, 8192*8*4*4, v3=False, jp=False)
     label = labeller.get_label("Alan Jackson", "Country Rock", "old town road", 4*60*44100, 0)
     print(label, labeller.describe_label(label['y']))
 
-    labeller = Labeller(1, 384, 6144*8*4*4, v3=True)
+    labeller = Labeller(1, 384, 6144*8*4*4, v3=True, jp=False)
     label = labeller.get_label("Alan Jackson", "Country Rock", "old town road", 4*60*44100, 0)
     print(label, labeller.describe_label(label['y']))
 

@@ -10,7 +10,7 @@ def save_html(logdir, x, zs, labels, alignments, hps):
     bs, total_length = z.shape[0], z.shape[1]
 
     with open(f'{logdir}/index.html', 'w') as html:
-        print(f"<html><head><title>{logdir}</title></head><body style='font-family: sans-serif; font-size: 1.4em; font-weight: bold; text-align: center; max-width:1024px; width: 100%; margin: auto;'>",
+        print(f"<html><head><meta http-equiv='content-type' charset='utf-8'><title>{logdir}</title></head><body style='font-family: sans-serif; font-size: 1.4em; font-weight: bold; text-align: center; max-width:1024px; width: 100%; margin: auto;'>",
             file=html)
         print("<link rel='icon' href='data:;base64,iVBORw0KGgo='>", file=html)
 
@@ -33,7 +33,7 @@ def _save_item_html(item_dir, item_id, item_name, data):
         os.makedirs(item_dir)
 
     with open(f'{item_dir}/index.html', 'w') as html:
-        print(f"<html><head><title>{item_name}</title></head><body style='font-family: sans-serif; font-size: 1.4em; font-weight: bold; text-align: center; max-width:1024px; width: 100%; margin: auto;'>",
+        print(f"<html><head><meta http-equiv='content-type' charset='utf-8'><title>{item_name}</title></head><body style='font-family: sans-serif; font-size: 1.4em; font-weight: bold; text-align: center; max-width:1024px; width: 100%; margin: auto;'>",
             file=html)
         print("<link rel='icon' href='data:;base64,iVBORw0KGgo='>", file=html)
         total_length = data['total_length']
@@ -42,6 +42,7 @@ def _save_item_html(item_dir, item_id, item_name, data):
         lyrics = data["info"]["lyrics"]
         wav, sr = data['wav'], data['sr']
         genre, artist = data["info"]["genre"], data["info"]["artist"]
+        lyrics_name = 'kzk'
 
         # Strip unused columns
         if alignment is not None:
@@ -79,7 +80,7 @@ def _save_item_html(item_dir, item_id, item_name, data):
 
         # Labels and Lyrics
         print(f"<pre style='white-space: pre-wrap;'>", end="", file=html)
-        print(f"<div>Artist {artist}, Genre {genre}</div>", file=html)
+        print(f"<div>Artist {artist}, Genre {genre}</div>, Lyrics {lyrics_name}</div>", file=html)
         lyrics = [c for c in lyrics]  # already characters actually
         lyrics = [''] + lyrics[:-1]  # input lyrics are shifted by 1
         for i, c in enumerate(lyrics):

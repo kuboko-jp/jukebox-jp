@@ -179,6 +179,7 @@ dependencies:
     - terminado==0.9.2
     - testpath==0.4.4
     - threadpoolctl==2.1.0
+    - torch-tb-profiler==0.1.0
     - tornado==6.1
     - tqdm==4.45.0
     - traitlets==5.0.5

@@ -138,3 +138,9 @@ logs/
 *.tar
 *.png
 *.csv
+*.dur
+
+# dataset folder
+dataset/
+
+core

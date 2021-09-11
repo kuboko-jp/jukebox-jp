@@ -1,9 +1,10 @@
-FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
+FROM tensorflow/tensorflow
 
 RUN apt-get update && apt-get install -y \
     sudo \
     wget \
-    vim
+    vim \
+    git
 WORKDIR /opt
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
@@ -23,7 +24,7 @@ RUN pip install --upgrade pip && \
 ENV CONDA_DEFAULT_ENV jukebox && \
     PATH /opt/conda/envs/jukebox/bin:$PATH
 
-WORKDIR /
+WORKDIR /workspace
 
 CMD ["/bin/bash"]
 

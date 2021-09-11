@@ -8,6 +8,7 @@ from jukebox.utils.io import get_duration_sec, load_audio
 from jukebox.data.labels import Labeller
 import pandas as pd
 import os
+import json
 
 class FilesAudioDataset(Dataset):
     def __init__(self, hps):
@@ -46,7 +47,7 @@ class FilesAudioDataset(Dataset):
         self.filter(files, durations)
 
         if self.labels:
-            self.labeller = Labeller(hps.max_bow_genre_size, hps.n_tokens, self.sample_length, v3=hps.labels_v3)
+            self.labeller = Labeller(hps.max_bow_genre_size, hps.n_tokens, self.sample_length, v3=hps.labels_v3, jp=hps.jp_lyrics)
 
     def get_index_offset(self, item):
         # For a given dataset item and shift, return song index and offset within song
@@ -85,23 +86,25 @@ class FilesAudioDataset(Dataset):
             piano piece.
         """
 
-        title_name = filename.split('/')[-1]  # ファイル名
+        dir_name = "wav_dataset_005"
 
-        #print(f"file name : {filename}")  # for debug
-        #print(f"title name : {title_name}")
-        #print(f"test : {test}")  # for debug
+        title_name = filename.split('/')[-1]  # waveファイル名
 
-        #print(f"current dir : {os.getcwd()}")
-        meta_dataset_path = "/workspace/dataset/meta_dataset/wav_lyrics_202104152324.csv"
-        df_meta = pd.read_csv(meta_dataset_path, encoding='cp932')
+        meta_dataset_path = f"/workspace/dataset/{dir_name}/title_list.csv"
+        lyric_dataset_path = os.path.join(f"/workspace/dataset/{dir_name}/lyric_data", f"{title_name[:-4]}.json")
 
-        artist = "ken hirai"
+        df_meta = pd.read_csv(meta_dataset_path, encoding='utf-8')
+
+        # artist
+        search_idx = df_meta.loc[df_meta.file_name==title_name].index[0]
+        artist = df_meta['artist_alphabet_name'][search_idx]
+        # genre
         genre = "j-pop"
+        # lyrics
+        with open(lyric_dataset_path) as f:
+            dict_lyric = json.load(f)
+        full_lyrics = dict_lyric["lyric_roma"]
 
-        full_lyrics = df_meta['lyric_roma'][df_meta.loc[df_meta.wav_path==title_name].index[0]]
-        # print(full_lyrics)
-
-        # return None, None, None
         return artist, genre, full_lyrics
 
     def get_song_chunk(self, index, offset, test=False):
