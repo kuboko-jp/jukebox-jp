@@ -104,7 +104,7 @@ class FilesAudioDataset(Dataset):
         assert data.shape == (self.channels, self.sample_length), f'Expected {(self.channels, self.sample_length)}, got {data.shape}'
         if self.labels:
             artist, genre, lyrics = self.get_metadata(filename, test)
-            labels = self.labeller.get_label(artist, genre, lyrics, total_length, offset)
+            labels = self.labeller.get_label(artist, genre, lyrics, total_length, offset, sr=sr)
             return data.T, labels['y']
         else:
             return data.T

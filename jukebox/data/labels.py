@@ -46,22 +46,68 @@ class Labeller():
         self.max_genre_words = max_genre_words
         self.sample_length = sample_length
         self.label_shape = (4 + self.max_genre_words + self.n_tokens, )
+        self.jp = jp
 
-    def get_label(self, artist, genre, lyrics, total_length, offset):
+    def get_aligned_lyrics(self, lyrics_df, total_length, offset, sr, duration):
+        """
+        lyrics_dfより、offsetに対応する歌詞を取得する
+
+        Parameters
+        ----------
+        lyrics_df : df
+            Aligned lyrics を格納したDF
+        total_length : int
+            1曲の長さ
+        offset : float
+            song_chunkの曲の開始時刻の経過時間
+        sr : int
+            Sampling rate
+            total_length, offsetに乗じる(かける)ことで単位が秒になる
+        duration : int
+            AudioChunkの長さ
+
+        Returns
+        -------
+        full_lyrics : str
+            歌詞全体
+        chunk_lyrics : str
+            (offset)〜(offset+total_length)  までの歌詞チャンク
+        """
+        start_sec = float(offset / sr)
+        end_sec = float((offset + duration) / sr)
+        assert (offset + duration) <= total_length
+        lyrics_idx_list = lyrics_df.loc[(lyrics_df.start>=start_sec) & (lyrics_df.end<=end_sec)].index.tolist()
+
+        lyrics_lang = 'hira' if self.jp==True else 'roma'
+        full_lyrics_list = [word for word in lyrics_df[lyrics_lang]]
+        chunk_lyrics_list = [full_lyrics_list[i] for i in lyrics_idx_list]
+        
+        full_lyrics = ' '.join(full_lyrics_list)
+        chunk_lyrics = ' '.join(chunk_lyrics_list)
+        chunk_lyrics = chunk_lyrics[:self.n_tokens]
+
+        return full_lyrics, chunk_lyrics
+
+    def get_label(self, artist, genre, lyrics, total_length, offset, sr):
+
+        full_lyrics, chunk_lyrics = self.get_aligned_lyrics(lyrics_df=lyrics, total_length=total_length,\
+                                                            offset=offset, sr=sr, duration=self.sample_length)
+
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
-        lyrics = self.text_processor.clean(lyrics)
-        # print(f"【Cleaned lyrics】: {lyrics[:20]}")
-        full_tokens = self.text_processor.tokenise(lyrics)
-        #print(f"【full_tokens】: {full_tokens[:10]}")
-        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)  # Audio chunkに対応する歌詞トークンを取得
-        #print(f"【relevant_tokens】: {tokens[:10]}")
+
+        full_lyrics = self.text_processor.clean(full_lyrics)
+        chunk_lyrics = self.text_processor.clean(chunk_lyrics)
+
+        full_tokens = self.text_processor.tokenise(full_lyrics)
+        # ******self.n_tokensのトークンにサイズ調整する必要あり！！！！******
+        tokens = self.text_processor.tokenise(chunk_lyrics)
 
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
         y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
         assert y.shape == self.label_shape, f"Expected {self.label_shape}, got {y.shape}"
-        info = dict(artist=artist, genre=genre, lyrics=lyrics, full_tokens=full_tokens)
+        info = dict(artist=artist, genre=genre, lyrics=full_lyrics, full_tokens=full_tokens)
         return dict(y=y, info=info)
 
     def get_y_from_ids(self, artist_id, genre_ids, lyric_tokens, total_length, offset):
