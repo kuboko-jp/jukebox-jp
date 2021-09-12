@@ -94,7 +94,7 @@ class FilesAudioDataset(Dataset):
         # genre
         genre = df_meta.loc[search_idx, 'genre']
         # lyrics
-        lyric_dataset_path = os.path.join("dataset/wav_dataset_006/aligned_lyric_csv", f"{title_name}.csv")
+        lyric_dataset_path = os.path.join("dataset/wav_dataset_006/aligned_lyric_csv_newline", f"{title_name}.csv")
         lyrics_df = pd.read_csv(lyric_dataset_path, encoding='utf-8')
         return artist, genre, lyrics_df
 

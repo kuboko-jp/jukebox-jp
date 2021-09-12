@@ -7,8 +7,8 @@ class TextProcessor():
             if jp:
                 print("Use JP tokens.")
                 jp_vocab = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉゃゅょっ"
-                vocab = f'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+\'\"()[] \t\n{jp_vocab}'
-                not_vocab = re.compile(f'[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n{jp_vocab}]+')
+                vocab = f'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 \n{jp_vocab}'
+                not_vocab = re.compile(f'[^{vocab}]+')
             else:
                 vocab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-\'\"()[] \t\n'
                 not_vocab = re.compile('[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n]+')

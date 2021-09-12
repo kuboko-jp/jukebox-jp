@@ -100,8 +100,8 @@ class Labeller():
         chunk_lyrics = self.text_processor.clean(chunk_lyrics)
 
         full_tokens = self.text_processor.tokenise(full_lyrics)
-        # ******self.n_tokensのトークンにサイズ調整する必要あり！！！！******
         tokens = self.text_processor.tokenise(chunk_lyrics)
+        tokens = [0]*(self.n_tokens-len(tokens)) + tokens
 
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
