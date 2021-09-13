@@ -268,7 +268,7 @@ def train(model, orig_model, opt, shd, scalar, ema, logger, metrics, data_proces
                 print(f"Saving checkpoint -> Epoch:{epoch} / Iters:{logger.iters}")
                 if ema is not None: ema.swap()
                 orig_model.eval()
-                name = f'epoch_{epoch}' if hps.prior else f'step_{logger.iters}'  # 各Epochごとにcheckpoint名を変更する
+                name = f'epoch_{epoch:03}' if hps.prior else f'step_{logger.iters}'  # 各Epochごとにcheckpoint名を変更する
                 #name = 'latest' if hps.prior else f'step_{logger.iters}'
                 if dist.get_rank() % 8 == 0:
                     save_checkpoint(logger, name, orig_model, opt, dict(step=logger.iters), hps)
