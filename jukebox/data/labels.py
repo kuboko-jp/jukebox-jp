@@ -79,8 +79,8 @@ class Labeller():
         lyrics_idx_list = lyrics_df.loc[(lyrics_df.start>=start_sec) & (lyrics_df.end<=end_sec)].index.tolist()
 
         lyrics_lang = 'hira' if self.jp==True else 'roma'
-        full_lyrics_list = [word for word in lyrics_df[lyrics_lang]]
-        chunk_lyrics_list = [full_lyrics_list[i] for i in lyrics_idx_list]
+        full_lyrics_list = [str(word) for word in lyrics_df[lyrics_lang]]
+        chunk_lyrics_list = [str(full_lyrics_list[i]) for i in lyrics_idx_list]
         
         full_lyrics = ' '.join(full_lyrics_list)
         chunk_lyrics = ' '.join(chunk_lyrics_list)
