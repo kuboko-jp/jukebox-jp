@@ -180,9 +180,9 @@ def load_codes(codes_file, duration, priors, hps):
     return zs
 
 # Generate and save samples, alignment, and webpage for visualization.
-def save_samples(model, device, hps, sample_hps):
+def save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp):
     print(hps)
-    from jukebox.lyricdict import poems, gpt_2_lyrics, jp  # jpを追加
+    from jukebox.lyricdict import poems, gpt_2_lyrics
     vqvae, priors = make_model(model, device, hps)
 
     assert hps.sample_length//priors[-2].raw_to_tokens >= priors[-2].n_ctx, f"Upsampling needs atleast one ctx in get_z_conds. Please choose a longer sample length"
@@ -196,93 +196,10 @@ def save_samples(model, device, hps, sample_hps):
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
 
 
-    metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=False,
-                        base_dir='/workspace/dataset/wav_dataset_005/', jp=False)
+    metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=input_new_lyric, base_dir=base_dir, jp=jp)
     #pprint(metas)
         
 
-    """
-    metas = [dict(artist = "Alan Jackson",
-                  genre = "Country",
-                  lyrics = poems['ozymandias'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Joe Bonamassa",
-                  genre="Blues Rock",
-                  lyrics=gpt_2_lyrics['hottub'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Frank Sinatra",
-                  genre="Classic Pop",
-                  lyrics=gpt_2_lyrics['alone'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Ella Fitzgerald",
-                  genre="Jazz",
-                  lyrics=gpt_2_lyrics['count'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Céline Dion",
-                  genre="Pop",
-                  lyrics=gpt_2_lyrics['darkness'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             ]
-    """
-    """
-    # 下記に変更
-    metas = [dict(artist = "hirai ken",
-                  genre = "j-pop",
-                  lyrics = jp['hitomiwotozite'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "mr . children",
-                  genre = "j-pop",
-                  lyrics = jp['hanabi'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "back number",
-                  genre = "j-pop",
-                  lyrics = jp['backnumber_happybirthday'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "kobukuro",
-                  genre = "j-pop",
-                  lyrics = jp['unomisako_onelovepop'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "dreams come true",
-                  genre = "j-pop",
-                  lyrics = jp['DREAMS COME TRUE_miraiyosouzu2'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "nishino kana",
-                  genre = "j-pop",
-                  lyrics = jp['nishino kana_moshimounnmeinohitogairunonara'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             ]
-    """
-    """
-    metas = [dict(artist = "mr_children",
-                genre = "j-pop",
-                lyrics = jp['hanabi'],
-                total_length=total_length,
-                offset=offset,
-                )
-            ]
-    """
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
@@ -292,7 +209,7 @@ def save_samples(model, device, hps, sample_hps):
         assert label['y'].shape[0] == hps.n_samples
 
     lower_level_chunk_size = 32
-    lower_level_max_batch_size = 16
+    lower_level_max_batch_size = 32  # 16 -> 32
     # 下記を変更(2021/04/06)
     # if model == '1b_lyrics':
     if "1b_lyrics" in model:  # "1b_lyrics"の文字列が含まれている場合:True / それ以外:False  (追加)
@@ -335,14 +252,16 @@ def save_samples(model, device, hps, sample_hps):
         raise ValueError(f'Unknown sample mode {sample_hps.mode}.')
 
 
-def run(model, mode='ancestral', codes_file=None, audio_file=None, prompt_length_in_seconds=None, port=29500, **kwargs):
+def run(model, mode='ancestral', codes_file=None, audio_file=None, prompt_length_in_seconds=None, port=29500, 
+        input_new_lyric=False, base_dir='/workspace/dataset/wav_dataset_005/', jp=False, **kwargs):
+    print(f"input_new_lyric:{input_new_lyric}  /  base_dir:{base_dir}  /  jp:{jp}")
     from jukebox.utils.dist_utils import setup_dist_from_mpi
     rank, local_rank, device = setup_dist_from_mpi(port=port)
     hps = Hyperparams(**kwargs)
     sample_hps = Hyperparams(dict(mode=mode, codes_file=codes_file, audio_file=audio_file, prompt_length_in_seconds=prompt_length_in_seconds))
 
     with t.no_grad():
-        save_samples(model, device, hps, sample_hps)
+        save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp)
 
 if __name__ == '__main__':
     fire.Fire(run)

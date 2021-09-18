@@ -110,6 +110,21 @@ class Labeller():
         info = dict(artist=artist, genre=genre, lyrics=full_lyrics, full_tokens=full_tokens)
         return dict(y=y, info=info)
 
+    def get_label_sample(self, artist, genre, lyrics, total_length, offset):
+        artist_id = self.ag_processor.get_artist_id(artist)
+        genre_ids = self.ag_processor.get_genre_ids(genre)
+
+        lyrics = self.text_processor.clean(lyrics)
+        full_tokens = self.text_processor.tokenise(lyrics)
+        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
+
+        assert len(genre_ids) <= self.max_genre_words
+        genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
+        y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
+        assert y.shape == self.label_shape, f"Expected {self.label_shape}, got {y.shape}"
+        info = dict(artist=artist, genre=genre, lyrics=lyrics, full_tokens=full_tokens)
+        return dict(y=y, info=info)
+
     def get_y_from_ids(self, artist_id, genre_ids, lyric_tokens, total_length, offset):
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
@@ -124,7 +139,7 @@ class Labeller():
     def get_batch_labels(self, metas, device='cpu'):
         ys, infos = [], []
         for meta in metas:
-            label = self.get_label(**meta)
+            label = self.get_label_sample(**meta)
             y, info = label['y'], label['info']
             ys.append(y)
             infos.append(info)
