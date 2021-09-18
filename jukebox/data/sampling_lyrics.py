@@ -42,12 +42,12 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
         lyric_lang = 'lyric_hira' if jp==True else 'lyric_roma'
         input_lyric = lyric[lyric_lang]
 
-        dic_sample = dict(artist=artist_alphabet_name, genre="j-pop",
+        dic_sample = dict(artist=artist_alphabet_name, genre="j_pop_dance",
                           lyrics=input_lyric, total_length=total_length, offset=offset,)
         metas.append(dic_sample)
     return metas
 
 if __name__ == '__main__':
-    input_metas = input_meta(offset=0, total_length=90, input_new_lyric=False, 
-               base_dir='/workspace/dataset/wav_dataset_005/')
+    input_metas = input_meta(offset=0, total_length=90, input_new_lyric=True, 
+               base_dir='/workspace/dataset/wav_dataset_006/', jp=True)
     pprint(input_metas)
