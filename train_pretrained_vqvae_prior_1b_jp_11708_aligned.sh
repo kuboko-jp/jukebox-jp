@@ -2,7 +2,7 @@
 mpiexec -n 8 python jukebox/train.py \
 --jp_lyrics \
 --hps=vqvae,prior_1b_jp,all_fp16,cpu_ema \
---name=pretrained_vqvae_prior_1b_jp_11708_alignedLyrics \
+--name=pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145 \
 --sample_length=786432 \
 --bs=1 \
 --aug_shift \
