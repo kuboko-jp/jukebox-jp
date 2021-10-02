@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Check lyric align train.py",
+            "name": "autoregressive_debug",
             "type": "python",
             "request": "launch",
             "program": "/workspace/jukebox/train.py",
@@ -14,7 +14,7 @@
             "args": [
                 "--jp_lyrics",
                 "--hps=vqvae,prior_1b_jp,all_fp16,cpu_ema",
-                "--name=pretrained_vqvae_prior_1b_jp_check_align",
+                "--name=autoregressive_debug",
                 "--sample_length=786432",
                 "--bs=1",
                 "--aug_shift",
