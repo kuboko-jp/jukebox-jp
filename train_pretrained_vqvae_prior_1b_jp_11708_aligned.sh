@@ -16,4 +16,6 @@ mpiexec -n 8 python jukebox/train.py \
 --level=2 \
 --weight_decay=0.01 \
 --save_iters=1000 \
---epochs=10000
+--epochs=10000 \
+--curr_epoch=12 \
+
