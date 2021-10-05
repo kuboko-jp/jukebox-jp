@@ -17,5 +17,5 @@ mpiexec -n 8 python jukebox/train.py \
 --weight_decay=0.01 \
 --save_iters=1000 \
 --epochs=10000 \
---curr_epoch=12 \
+--curr_epoch=21 \
 
