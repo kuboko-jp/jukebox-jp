@@ -48,6 +48,6 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
     return metas
 
 if __name__ == '__main__':
-    input_metas = input_meta(offset=0, total_length=90, input_new_lyric=False, 
-               base_dir='/workspace/dataset/wav_dataset_005/')
+    input_metas = input_meta(offset=0, total_length=60, input_new_lyric=True, 
+               base_dir='/workspace/dataset/wav_dataset_006/')
     pprint(input_metas)

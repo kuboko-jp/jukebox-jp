@@ -48,6 +48,21 @@ class Labeller():
         self.label_shape = (4 + self.max_genre_words + self.n_tokens, )
         self.jp = jp
 
+    def get_label(self, artist, genre, lyrics, total_length, offset):
+        artist_id = self.ag_processor.get_artist_id(artist)
+        genre_ids = self.ag_processor.get_genre_ids(genre)
+
+        lyrics = self.text_processor.clean(lyrics)
+        full_tokens = self.text_processor.tokenise(lyrics)
+        tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
+
+        assert len(genre_ids) <= self.max_genre_words
+        genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
+        y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
+        assert y.shape == self.label_shape, f"Expected {self.label_shape}, got {y.shape}"
+        info = dict(artist=artist, genre=genre, lyrics=lyrics, full_tokens=full_tokens)
+        return dict(y=y, info=info)
+
     def get_aligned_lyrics(self, lyrics_df, total_length, offset, sr, duration):
         """
         lyrics_dfより、offsetに対応する歌詞を取得する
@@ -88,8 +103,8 @@ class Labeller():
 
         return full_lyrics, chunk_lyrics
 
-    def get_label(self, artist, genre, lyrics, total_length, offset, sr):
-
+    def get_label_train(self, artist, genre, lyrics, total_length, offset, sr):
+        """get_label for train phase"""
         full_lyrics, chunk_lyrics = self.get_aligned_lyrics(lyrics_df=lyrics, total_length=total_length,\
                                                             offset=offset, sr=sr, duration=self.sample_length)
 
@@ -173,7 +188,7 @@ if __name__ == '__main__':
     print(label, labeller.describe_label(label['y']))
 
     labeller = Labeller(1, 384, 6144*8*4*4, v3=True, jp=True)
-    lyrics = '誰もが皆平行線 そんな淡い純心も 不完全な生命 生きる意味を殺した'
+    lyrics = 'だれもがみなへいこうせん そんなあわいじゅんしんも'
     label = labeller.get_label("Alan Jackson", "Country Rock", lyrics=lyrics, total_length=4*60*44100, offset=0)
     print(label, labeller.describe_label(label['y']))
 
