@@ -195,85 +195,9 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
     # For the 5b/5b_lyrics model and the upsamplers, labeller will look up artist and genres in v2 set. (after lowercasing, removing non-alphanumerics and collapsing whitespaces to _).
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
 
-
     metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=True,
-                        base_dir=sample_base_dir, jp=False)
-    #pprint(metas)
-        
-
-    """
-    metas = [dict(artist = "Alan Jackson",
-                  genre = "Country",
-                  lyrics = poems['ozymandias'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Joe Bonamassa",
-                  genre="Blues Rock",
-                  lyrics=gpt_2_lyrics['hottub'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Frank Sinatra",
-                  genre="Classic Pop",
-                  lyrics=gpt_2_lyrics['alone'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Ella Fitzgerald",
-                  genre="Jazz",
-                  lyrics=gpt_2_lyrics['count'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             dict(artist="Céline Dion",
-                  genre="Pop",
-                  lyrics=gpt_2_lyrics['darkness'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             ]
-    """
-    """
-    # 下記に変更
-    metas = [dict(artist = "hirai ken",
-                  genre = "j-pop",
-                  lyrics = jp['hitomiwotozite'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "mr . children",
-                  genre = "j-pop",
-                  lyrics = jp['hanabi'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "back number",
-                  genre = "j-pop",
-                  lyrics = jp['backnumber_happybirthday'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "kobukuro",
-                  genre = "j-pop",
-                  lyrics = jp['unomisako_onelovepop'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "dreams come true",
-                  genre = "j-pop",
-                  lyrics = jp['DREAMS COME TRUE_miraiyosouzu2'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-            dict(artist = "nishino kana",
-                  genre = "j-pop",
-                  lyrics = jp['nishino kana_moshimounnmeinohitogairunonara'],
-                  total_length=total_length,
-                  offset=offset,
-                  ),
-             ]
-    """
+                        base_dir=sample_base_dir, jp=hps.jp)
+    print(metas)
     """
     metas = [dict(artist = "mr_children",
                 genre = "j-pop",
