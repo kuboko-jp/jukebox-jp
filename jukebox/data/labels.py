@@ -40,6 +40,7 @@ class EmptyLabeller():
 
 class Labeller():
     def __init__(self, max_genre_words, n_tokens, sample_length, v3=False, jp=False):
+        print(f"!!!JP_lyrics : {jp} !!!")
         self.ag_processor = ArtistGenreProcessor(v3)
         self.text_processor = TextProcessor(v3, jp)
         self.n_tokens = n_tokens
@@ -52,7 +53,7 @@ class Labeller():
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
 
-        lyrics = self.text_processor.clean(lyrics)
+        lyrics = self.text_processor.clean(lyrics)  # Sampling時、ここでひらがなが消えている
         full_tokens = self.text_processor.tokenise(lyrics)
         tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
 

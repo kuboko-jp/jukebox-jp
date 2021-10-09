@@ -34,7 +34,7 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
         genre = df_sampling_list.loc[idx, 'genre']
 
         if input_new_lyric:
-            lyric_path = os.path.join(base_dir, "input_jukebox/free_lyric_01.json")
+            lyric_path = os.path.join(base_dir, "input_jukebox/back_number_short.json")
         else:
             lyric_file_name = df_sampling_list.loc[idx, 'lyric_file_name']
             lyric_path = os.path.join(base_dir, "lyric_data", f"{lyric_file_name}.json")

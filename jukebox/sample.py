@@ -196,7 +196,7 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
 
     metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=True,
-                        base_dir=sample_base_dir, jp=hps.jp)
+                        base_dir=sample_base_dir, jp=hps.jp_lyrics)
     """
     metas = [dict(artist = "mr_children",
                 genre = "j-pop",
@@ -211,6 +211,8 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
     metas = metas[:hps.n_samples]
 
     labels = [prior.labeller.get_batch_labels(metas, 'cuda') for prior in priors]
+    print(labels[2]['y'][0])
+    print(labels[2]['info'][0]['full_tokens'])
     for label in labels:
         assert label['y'].shape[0] == hps.n_samples
 

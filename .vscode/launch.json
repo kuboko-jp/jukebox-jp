@@ -57,5 +57,27 @@
                 "--epochs=3"
             ]
         },
+        {
+            "name": "/jukebox/sample",
+            "type": "python",
+            "request": "launch",
+            "program": "/workspace/jukebox/sample.py",
+            "console": "integratedTerminal",
+            "justMyCode": false, // false: 外部モジュールに対してもデバッグする
+            "args": [
+                "--model=1b_lyrics_jp_11708",
+                "--name=sample_test",
+                "--levels=3",
+                "--sample_length_in_seconds=20",
+                "--total_sample_length_in_seconds=20",
+                "--sr=44100",
+                "--n_samples=16",
+                "--hop_fraction=0.5,0.5,0.125",
+                "--input_new_lyric",
+                "--base_dir='/workspace/dataset/wav_dataset_006/'",
+                "--jp_lyrics",
+                "--sample_length=786432",
+            ]
+        },
     ]
 }
