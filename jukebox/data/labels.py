@@ -134,7 +134,8 @@ class Labeller():
             tokens = front_tokens[-(self.n_tokens-len(back_tokens)):] + back_tokens
         else:
             tokens = front_tokens[-n_tokens_sep:] + back_tokens[:n_tokens_sep]
-            
+        
+        assert len(tokens) == self.n_tokens
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
         y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
