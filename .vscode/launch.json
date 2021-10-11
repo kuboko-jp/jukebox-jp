@@ -40,12 +40,12 @@
             "justMyCode": false, // false: 外部モジュールに対してもデバッグする
             "args": [
                 "--hps=vqvae,prior_1b_jp,all_fp16,cpu_ema",
-                "--name=pretrained_vqvae_prior_1b_jp_debug",
+                "--name=train_lyrics_debug",
                 "--sample_length=786432",
-                "--bs=2",
+                "--bs=1",
                 "--aug_shift",
                 "--aug_blend",
-                "--audio_files_dir=/workspace/dataset/wav_dataset_004/wav_data",
+                "--audio_files_dir=/workspace/dataset/wav_dataset_006/wav_data",
                 "--labels=True",
                 "--train",
                 "--test",

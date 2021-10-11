@@ -53,7 +53,7 @@ class Labeller():
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
 
-        lyrics = self.text_processor.clean(lyrics)  # Sampling時、ここでひらがなが消えている
+        lyrics = self.text_processor.clean(lyrics)
         full_tokens = self.text_processor.tokenise(lyrics)
         tokens, _ = get_relevant_lyric_tokens(full_tokens, self.n_tokens, total_length, offset, self.sample_length)
 
@@ -89,36 +89,52 @@ class Labeller():
         chunk_lyrics : str
             (offset)〜(offset+total_length)  までの歌詞チャンク
         """
-        start_sec = float(offset / sr)
-        end_sec = float((offset + duration) / sr)
         assert (offset + duration) <= total_length
-        lyrics_idx_list = lyrics_df.loc[(lyrics_df.start>=start_sec) & (lyrics_df.end<=end_sec)].index.tolist()
+        mid_sec = float((offset + (duration / 2)) / sr)
+        mid_sec = 130  # for debug
+        mid_idx = np.argmin(np.abs(lyrics_df.mid - mid_sec))
+
+        front_lyrics_df = lyrics_df[:mid_idx]
+        back_lyrics_df = lyrics_df[mid_idx:]
 
         lyrics_lang = 'hira' if self.jp==True else 'roma'
         full_lyrics_list = [str(word) for word in lyrics_df[lyrics_lang]]
-        chunk_lyrics_list = [str(full_lyrics_list[i]) for i in lyrics_idx_list]
+        front_lyrics_list = [str(word) for word in front_lyrics_df[lyrics_lang]]
+        back_lyrics_list = [str(word) for word in back_lyrics_df[lyrics_lang]]
         
         full_lyrics = ' '.join(full_lyrics_list)
-        chunk_lyrics = ' '.join(chunk_lyrics_list)
-        chunk_lyrics = chunk_lyrics[:self.n_tokens]
+        front_lyrics = ' '.join(front_lyrics_list)
+        back_lyrics = ' '.join(back_lyrics_list)
 
-        return full_lyrics, chunk_lyrics
+        return full_lyrics, front_lyrics, back_lyrics
 
     def get_label_train(self, artist, genre, lyrics, total_length, offset, sr):
         """get_label for train phase"""
-        full_lyrics, chunk_lyrics = self.get_aligned_lyrics(lyrics_df=lyrics, total_length=total_length,\
+        full_lyrics, front_lyrics, back_lyrics = self.get_aligned_lyrics(lyrics_df=lyrics, total_length=total_length,\
                                                             offset=offset, sr=sr, duration=self.sample_length)
 
         artist_id = self.ag_processor.get_artist_id(artist)
         genre_ids = self.ag_processor.get_genre_ids(genre)
 
         full_lyrics = self.text_processor.clean(full_lyrics)
-        chunk_lyrics = self.text_processor.clean(chunk_lyrics)
+        front_lyrics = self.text_processor.clean(front_lyrics)
+        back_lyrics = self.text_processor.clean(back_lyrics)
 
         full_tokens = self.text_processor.tokenise(full_lyrics)
-        tokens = self.text_processor.tokenise(chunk_lyrics)
-        tokens = [0]*(self.n_tokens-len(tokens)) + tokens
+        front_tokens = self.text_processor.tokenise(front_lyrics)
+        back_tokens = self.text_processor.tokenise(back_lyrics)
 
+        n_tokens_sep = self.n_tokens // 2
+        # Fill n_tokens as much as possible with lyrics corresponding to AudioChunk.
+        if len(full_tokens) < self.n_tokens:
+            tokens = [0]*(self.n_tokens-len(full_tokens)) + full_tokens
+        elif len(front_tokens) < n_tokens_sep:
+            tokens = front_tokens + back_tokens[:(self.n_tokens-len(front_tokens))]
+        elif len(back_tokens) < n_tokens_sep:
+            tokens = front_tokens[-(self.n_tokens-len(back_tokens)):] + back_tokens
+        else:
+            tokens = front_tokens[-n_tokens_sep:] + back_tokens[:n_tokens_sep]
+            
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
         y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
