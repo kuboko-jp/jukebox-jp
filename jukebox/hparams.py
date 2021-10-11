@@ -377,8 +377,7 @@ prior_1b_jp = Hyperparams(
     min_duration=17.84,
     max_duration=600.0,
     use_tokens=True,
-    n_tokens=384,
-    #n_tokens=128,  # (n_tokens + n_ctx) % blocks must 0
+    n_tokens=384,  # (n_tokens + n_ctx) % blocks must 0
     prime_loss_fraction=0.4,
     single_enc_dec=True,
     fp16_params=False,
@@ -388,8 +387,8 @@ prior_1b_jp = Hyperparams(
     t_bins=64,
     max_bow_genre_size=1,
     n_vocab=145,
-    jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
-    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145/checkpoint_epoch_023.pth.tar',
+    jp_lyrics=True,  # Added for J-Pop(True:Add hiragana to token)
+    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145/checkpoint_epoch_030.pth.tar',
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------
