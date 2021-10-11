@@ -1,5 +1,5 @@
 #!/bin/bash
-mpiexec -n 8 python jukebox/train.py \
+mpiexec -n 4 python jukebox/train.py \
 --jp_lyrics \
 --hps=vqvae,prior_1b_jp,all_fp16,cpu_ema \
 --name=pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145 \
@@ -17,5 +17,5 @@ mpiexec -n 8 python jukebox/train.py \
 --weight_decay=0.01 \
 --save_iters=1000 \
 --epochs=10000 \
---curr_epoch=21 \
+--curr_epoch=34 \
 
