@@ -127,20 +127,15 @@ class Labeller():
         n_tokens_sep = self.n_tokens // 2
         # Fill n_tokens as much as possible with lyrics corresponding to AudioChunk.
         if len(full_tokens) < self.n_tokens:
-            print('too short', len(full_tokens))
             tokens = [0]*(self.n_tokens-len(full_tokens)) + full_tokens
         elif len(front_tokens) < n_tokens_sep:
-            print('Front', len(front_tokens))
             tokens = front_tokens + back_tokens[:(self.n_tokens-len(front_tokens))]
         elif len(back_tokens) < n_tokens_sep:
-            print('Back', len(back_tokens))
-            print(len(front_tokens), len(back_tokens), len(front_tokens[-(self.n_tokens-len(back_tokens)):]))
             tokens = front_tokens[-(self.n_tokens-len(back_tokens)):] + back_tokens
         else:
-            print('Default')
             tokens = front_tokens[-n_tokens_sep:] + back_tokens[:n_tokens_sep]
 
-        assert len(tokens) == self.n_tokens, f"{len(tokens)} != {self.n_tokens}"
+        #assert len(tokens) == self.n_tokens, f"{len(tokens)} != {self.n_tokens}"
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
         y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
