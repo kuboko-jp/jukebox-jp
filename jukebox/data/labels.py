@@ -134,6 +134,7 @@ class Labeller():
             tokens = front_tokens + back_tokens[:(self.n_tokens-len(front_tokens))]
         elif len(back_tokens) < n_tokens_sep:
             print('Back', len(back_tokens))
+            print(len(front_tokens), len(back_tokens), len(front_tokens[-(self.n_tokens-len(back_tokens)):]))
             tokens = front_tokens[-(self.n_tokens-len(back_tokens)):] + back_tokens
         else:
             print('Default')
