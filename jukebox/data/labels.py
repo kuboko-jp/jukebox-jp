@@ -105,6 +105,7 @@ class Labeller():
         full_lyrics = ' '.join(full_lyrics_list)
         front_lyrics = ' '.join(front_lyrics_list)
         back_lyrics = ' '.join(back_lyrics_list)
+        back_lyrics = ' ' + back_lyrics  # Insert to connect front_lyrics and back_lyrics with a space.
 
         return full_lyrics, front_lyrics, back_lyrics
 
@@ -135,7 +136,7 @@ class Labeller():
         else:
             tokens = front_tokens[-n_tokens_sep:] + back_tokens[:n_tokens_sep]
 
-        #assert len(tokens) == self.n_tokens, f"{len(tokens)} != {self.n_tokens}"
+        assert len(tokens) == self.n_tokens, f"{len(tokens)} != {self.n_tokens}"
         assert len(genre_ids) <= self.max_genre_words
         genre_ids = genre_ids + [-1] * (self.max_genre_words - len(genre_ids))
         y = np.array([total_length, offset, self.sample_length, artist_id, *genre_ids, *tokens], dtype=np.int64)
