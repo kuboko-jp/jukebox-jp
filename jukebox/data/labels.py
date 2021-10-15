@@ -91,7 +91,6 @@ class Labeller():
         """
         assert (offset + duration) <= total_length
         mid_sec = float((offset + (duration / 2)) / sr)
-        mid_sec = 130  # for debug
         mid_idx = np.argmin(np.abs(lyrics_df.mid - mid_sec))
 
         front_lyrics_df = lyrics_df[:mid_idx]
