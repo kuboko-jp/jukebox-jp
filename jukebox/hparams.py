@@ -388,7 +388,7 @@ prior_1b_jp = Hyperparams(
     max_bow_genre_size=1,
     n_vocab=145,
     jp_lyrics=True,  # Added for J-Pop(True:Add hiragana to token)
-    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145/checkpoint_epoch_030.pth.tar',
+    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145_longTokens_fineTune30epochAligned/checkpoint_epoch_041.pth.tar',
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------
