@@ -287,10 +287,11 @@ prior_1b_lyrics_finetune_roma_alignedlyrics = Hyperparams(
     fp16_params=False,
     alignment_layer=63,
     alignment_head=0,
+    jp_lyrics=False,
     v3_ftune=True,
 )
-prior_1b_lyrics_finetune_roma_11708.update(labels_v3)
-HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_11708"] = prior_1b_lyrics_finetune_roma_11708
+prior_1b_lyrics_finetune_roma_alignedlyrics.update(labels_v3)
+HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_alignedlyrics"] = prior_1b_lyrics_finetune_roma_alignedlyrics
 # ------------------------------------------------------------------------------------
 
 

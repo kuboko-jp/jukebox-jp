@@ -93,7 +93,7 @@ class ArtistGenreProcessor():
         self.artists = create_reverse_lookup(self.artist_ids)
 
     def load_genres(self):
-        print(f'Loading artist IDs from {self.genre_id_file}')
+        print(f'Loading genre IDs from {self.genre_id_file}')
         self.genre_ids = {}
         with open(self.genre_id_file, 'r', encoding="utf-8") as f:
             for line in f:
