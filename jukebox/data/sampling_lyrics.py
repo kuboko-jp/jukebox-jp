@@ -40,7 +40,7 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
             lyric_path = os.path.join(base_dir, "lyric_data", f"{lyric_file_name}.json")
         with open(lyric_path, mode='r', encoding='utf-8') as f:
             lyric = json.load(f)
-        lyric_lang = 'lyric_hira' if jp==True else 'lyric_roma'
+        lyric_lang = 'lyric_hira' if jp==True else 'lyric_en_roma'
         input_lyric = lyric[lyric_lang]
 
         dic_sample = dict(artist=artist_alphabet_name, genre=genre,
@@ -50,5 +50,5 @@ def input_meta(offset:int, total_length:int, input_new_lyric=True,
 
 if __name__ == '__main__':
     input_metas = input_meta(offset=0, total_length=240, input_new_lyric=True, 
-               base_dir='/workspace/dataset/wav_dataset_006/', jp=True)
+               base_dir='/workspace/dataset/wav_dataset_006/', jp=False)
     pprint(input_metas)
