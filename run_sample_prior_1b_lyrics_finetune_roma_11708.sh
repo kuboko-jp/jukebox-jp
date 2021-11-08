@@ -10,4 +10,5 @@ mpiexec -n 1 python jukebox/sample.py \
 --hop_fraction=0.5,0.5,0.125 \
 --input_new_lyric \
 --base_dir='/workspace/dataset/wav_dataset_006/' \
---jp_lyrics=False
+--jp_lyrics=False \
+--v3_ftune=True

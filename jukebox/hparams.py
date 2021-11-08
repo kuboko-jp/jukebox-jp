@@ -261,6 +261,33 @@ prior_1b_lyrics_finetune_roma_11708 = Hyperparams(
     fp16_params=False,
     alignment_layer=63,
     alignment_head=0,
+    v3_ftune=True,
+)
+prior_1b_lyrics_finetune_roma_11708.update(labels_v3)
+HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_11708"] = prior_1b_lyrics_finetune_roma_11708
+
+prior_1b_lyrics_finetune_roma_alignedlyrics = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_10.pth.tar",
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+    v3_ftune=True,
 )
 prior_1b_lyrics_finetune_roma_11708.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_11708"] = prior_1b_lyrics_finetune_roma_11708
@@ -591,6 +618,8 @@ DEFAULTS["sample"] = Hyperparams(
     temp_rest=0.99,
     sample_length_in_seconds=24,
     total_sample_length_in_seconds=240,
+    jp_lyrics=False,
+    v3_ftune=False,
 )
 
 DEFAULTS["prime"] = Hyperparams(
@@ -676,6 +705,7 @@ DEFAULTS["train_test_eval"] = Hyperparams(
     break_test=1e10,
     exit_train=1e10,
     jp_lyrics=False,
+    v3_ftune=False,
 )
 
 DEFAULTS["audio"] = Hyperparams(

@@ -23,6 +23,7 @@ MODELS = {
     '1b_lyrics_jp_35': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
     '1b_lyrics_jp_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
     '1b_lyrics_finetune_roma_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetune_roma_11708"),
+    '1b_lyrics_finetune_roma_alignedlyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetune_roma_alignedlyrics"),
     #'your_model': ("you_vqvae_here", "your_upsampler_here", ..., "you_top_level_prior_here")
 }
 
@@ -183,6 +184,7 @@ def make_prior(hps, vqvae, device='cuda'):
                         labels_v3=hps.labels_v3,
                         merged_decoder=hps.merged_decoder,
                         single_enc_dec=hps.single_enc_dec,
+                        v3_ftune=hps.v3_ftune,
                         jp_lyrics=hps.jp_lyrics,
                         )
 

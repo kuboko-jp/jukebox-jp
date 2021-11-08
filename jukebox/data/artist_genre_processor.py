@@ -25,16 +25,24 @@ def create_reverse_lookup(atoi):
     return itoa
 
 class ArtistGenreProcessor():
-    def __init__(self, v3=False):
+    def __init__(self, v3=False, v3_ftune=False, jp_lyrics=False):
         self.v3 = v3
+        self.v3_ftune = v3_ftune
+        self.jp_lyrics = jp_lyrics
         dirname = os.path.dirname(__file__)
-        if self.v3:
+        if self.v3_ftune:
+            self.artist_id_file = f"{dirname}/ids/tune_v3_artist_ids.txt"
+            self.genre_id_file = f"{dirname}/ids/tune_v3_genre_ids.txt"
+        elif self.jp_lyrics:
+            self.artist_id_file = f"{dirname}/ids/jp_artist_ids.txt"
+            self.genre_id_file = f"{dirname}/ids/jp_genre_ids.txt"
+        elif self.v3:
             self.artist_id_file = f"{dirname}/ids/v3_artist_ids.txt"
             self.genre_id_file = f"{dirname}/ids/v3_genre_ids.txt"
         else:
             self.artist_id_file = f"{dirname}/ids/v2_artist_ids.txt"
             self.genre_id_file = f"{dirname}/ids/v2_genre_ids.txt"
-        print(f"using {self.artist_id_file}")
+        print(f"Using ids : {self.artist_id_file} / {self.genre_id_file}")
         self.load_artists()
         self.load_genres()
 

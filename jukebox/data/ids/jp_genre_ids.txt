@@ -1,0 +1,4 @@
+j_unknown;0
+j_rock_hiphop_punk;1
+j_pop_dance;2
+j_ballad_acoustic;3

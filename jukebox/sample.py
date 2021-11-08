@@ -197,6 +197,7 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
 
     metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=True,
                         base_dir=sample_base_dir, jp=hps.jp_lyrics)
+    pprint(metas)
     """
     metas = [dict(artist = "mr_children",
                 genre = "j-pop",

@@ -336,7 +336,7 @@ michael christmas;335
 phobia;336
 jill tracy;337
 dilana;338
-royce da 5'9";339
+"royce da 5'9""";339
 les savy fav;340
 the blow;341
 kim wilde;342
@@ -466,7 +466,7 @@ the gothsicles;465
 david coverdale;466
 joe henry;467
 the human abstract;468
-alger "texas" alexander;469
+"alger ""texas"" alexander";469
 diane cluck;470
 fozzy;471
 zero 7;472
@@ -1422,7 +1422,7 @@ diddy;1421
 anacrusis;1422
 dropkick murphys;1423
 doyle bramhall;1424
-lisa "left eye" lopes;1425
+"lisa ""left eye"" lopes";1425
 ll cool j;1426
 deadsoul tribe;1427
 sunset rubdown;1428
@@ -1642,7 +1642,7 @@ joshua perahia;1641
 gallows;1642
 luxt;1643
 nick lowe;1644
-clarence "gatemouth" brown;1645
+"clarence ""gatemouth"" brown";1645
 sweet noise;1646
 thank you scientist;1647
 cherish the ladies;1648
@@ -1901,7 +1901,7 @@ fun boy three;1900
 circulatory system;1901
 the road hammers;1902
 brian mcknight;1903
-"weird al" yankovic;1904
+weird al yankovic;1904
 the wailers;1905
 kurupt;1906
 criminal;1907
@@ -6664,7 +6664,7 @@ demolition hammer;6663
 edguy;6664
 winds of plague;6665
 flatsound;6666
-james "j.t." taylor;6667
+"james ""j.t."" taylor";6667
 dave alvin;6668
 dimmu borgir;6669
 kreator;6670
@@ -7323,7 +7323,7 @@ cherry poppin' daddies;7322
 berlin;7323
 reverend bizarre;7324
 brazzaville;7325
-george "harmonica" smith;7326
+"george ""harmonica"" smith";7326
 garfunkel and oates;7327
 ashley tisdale;7328
 james mcmurtry;7329
@@ -7751,148 +7751,148 @@ blaque;7750
 connie smith;7751
 utada hikaru;7752
 zhu;7753
-why don't we;7754
-beachwood sparks;7755
-the l-train;7756
-beth orton;7757
-guiomar novaes;7758
-animosity;7759
-deborah allen;7760
-the real tuesday weld;7761
-janelle monáe;7762
-!!!;7763
-hayley westenra;7764
-avicii;7765
-lil yachty;7766
-brazilian girls;7767
-the babys;7768
-mirah;7769
-rockapella;7770
-the posies;7771
-eden synthetic corps;7772
-bright eyes;7773
-black knights;7774
-hoodoo gurus;7775
-drain sth;7776
-babe ruth;7777
-watain;7778
-lil b;7779
-t'pau;7780
-joe jackson;7781
-june christy;7782
-josh turner;7783
-carly simon;7784
-becoming the archetype;7785
-alexisonfire;7786
-paulson;7787
-make them suffer;7788
-drake;7789
-billy thorpe;7790
-earth, wind & fire;7791
-belleruche;7792
-the housemartins;7793
-the chariot;7794
-jefferson starship;7795
-wolf gang;7796
-roch voisine;7797
-parachute;7798
-ferruccio busoni;7799
-grave digger;7800
-piebald;7801
-bob dylan;7802
-wax;7803
-eric fish;7804
-mark spiro;7805
-the seatbelts;7806
-dawn richard;7807
-usher;7808
-lmfao;7809
-i monster;7810
-mikhail glinka;7811
-nombe;7812
-s club 7;7813
-ray davies;7814
-dusty springfield;7815
-hieroglyphics;7816
-steril;7817
-vladimir sofronitsky;7818
-大塚愛 (ai otsuka);7819
-brendan benson;7820
-cyferdyne;7821
-fantasia;7822
-zola jesus;7823
-october fall;7824
-she & him;7825
-trixter;7826
-damien rice;7827
-delain;7828
-dave stewart & the spiritual cowboys;7829
-little boots;7830
-crystallion;7831
-rusted root;7832
-blanks 77;7833
-dirty looks;7834
-within reason;7835
-casey donahew band;7836
-aythis;7837
-the world of skin;7838
-propaganda;7839
-tom russell;7840
-julia stone;7841
-emigrate;7842
-vaya con dios;7843
-tove lo;7844
-death by stereo;7845
-stevie ray vaughan;7846
-nim vind;7847
-sonny terry & brownie mcghee;7848
-sam phillips;7849
-b! machine;7850
-julio iglesias;7851
-john wetton;7852
-edgar broughton band;7853
-dr. alban;7854
-mars ill;7855
-immaculate machine;7856
-martyr defiled;7857
-free dominguez;7858
-atreyu;7859
-johnny burnette;7860
-maria mena;7861
-spheric universe experience;7862
-whitehouse;7863
-zed;7864
-andrea bocelli;7865
-tommy james and the shondells;7866
-malcolm middleton;7867
-suicide commando;7868
-mark owen;7869
-the string cheese incident;7870
-patti austin;7871
-jethro tull;7872
-jennifer lopez;7873
-dorothy;7874
-ayria;7875
-guru;7876
-burton cummings;7877
-the warren brothers;7878
-a1;7879
-cody jinks;7880
-billy squier;7881
-junius;7882
-never shout never;7883
-the cryan' shames;7884
-the heavy;7885
-myra hess;7886
-television;7887
-sadist;7888
-danger danger;7889
-clique girlz;7890
-jamie lawson;7891
-rosanne cash;7892
-walk off the earth;7893
-scorpions;7894
-kelly clarkson;7895
-unknown;0
-speaker;7896
-singer;7897
+04 limited sazabys;7754
+aaa;7755
+ai;7756
+akb 48;7757
+asian kung-fu generation;7758
+aimer;7759
+aqua timez;7760
+awesome city club;7761
+beni;7762
+blue encount;7763
+bump of chicken;7764
+chico with honeyworks;7765
+creepy nuts;7766
+da pump;7767
+dreams come true;7768
+da-ice;7769
+e-girls;7770
+egoist;7771
+exile;7772
+every little thing;7773
+funky monkey babys;7774
+generations from exile tribe;7775
+glay;7776
+greeeen;7777
+hy;7778
+hey ! say ! jump;7779
+hilcrhyme;7780
+juju;7781
+kana-boon;7782
+kat-tun;7783
+king & prince;7784
+king gnu;7785
+l'arc ~ en ~ ciel;7786
+little glee monster;7787
+man with a mission;7788
+misia;7789
+monkey majik;7790
+my first story;7791
+may j;7792
+mr . children;7793
+mrs . green apple;7794
+news;7795
+nico touches the walls;7796
+nissy;7797
+novelbright;7798
+one ok rock;7799
+orange range;7800
+official higeotoko dism;7801
+perfume;7802
+radwimps;7803
+rin oto;7804
+sekai no owari;7805
+she's;7806
+shishamo;7807
+smap;7808
+spyair;7809
+super beaver;7810
+saucy dog;7811
+shuta sueyoshi;7812
+superfly;7813
+the oral cigarettes;7814
+the rampage from exile tribe;7815
+unison square garden;7816
+uverworld;7817
+uru;7818
+wanima;7819
+yoasobi;7820
+yui;7821
+yuki;7822
+[ alexandros ];7823
+aiko;7824
+back number;7825
+indigo la end;7826
+milet;7827
+miwa;7828
+sumika;7829
+wacci;7830
+ai myon;7831
+ikimonogakari;7832
+kyariipamyupamyu;7833
+sayuri;7834
+chan mina;7835
+momoiro kuroobaa z;7836
+yuzu;7837
+kuriipuhaipu;7838
+ketsumeishi;7839
+gesuno kiwami otome .;7840
+kobukuro;7841
+sakanakushon;7842
+sazan'oorusutaazu;7843
+sanbomasutaa;7844
+sukimasuitchi;7845
+supittsu;7846
+chattomonchii;7847
+naoto ・ inteiraimi;7848
+hachi;7849
+bikkeburanka;7850
+fujifaburikku;7851
+poruno gurafitei;7852
+makaroni enpitsu;7853
+yabai t shatsu ya san;7854
+yoru shika;7855
+remioromen;7856
+hitoto you;7857
+san daime j soul brothers from exile tribe;7858
+miura daichi;7859
+nakashimamika;7860
+nogizaka 46;7861
+kouda kumi;7862
+katou miriya;7863
+yoshioka kiyoe;7864
+ooharasakurako;7865
+ootsuka ai;7866
+jooubachi;7867
+utada hikaru;7868
+unomisako;7869
+amuro namie;7870
+ieiri reo;7871
+arashi;7872
+hirai ken;7873
+hiraidai;7874
+saitoukazuyoshi;7875
+hoshinogen;7876
+kimura kaera;7877
+toukyoujihen;7878
+matsuda seiko;7879
+shibasaki kou;7880
+kuwata keisuke;7881
+shiina ringo;7882
+keyakizaka 46;7883
+hamasaki ayumi;7884
+shimizushouta;7885
+shounannokaze;7886
+akira jin;7887
+fukuharamiho;7888
+fukuyama masaharu;7889
+hatamotohiro;7890
+takeuchi mariya;7891
+yonezu kenshi;7892
+ayaka;7893
+suda masaki;7894
+nishino kana;7895
+kan jani ∞;0
+abemao;7896
+aoyama teruma;7897
