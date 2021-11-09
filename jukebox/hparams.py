@@ -292,6 +292,36 @@ prior_1b_lyrics_finetune_roma_alignedlyrics = Hyperparams(
 )
 prior_1b_lyrics_finetune_roma_alignedlyrics.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_alignedlyrics"] = prior_1b_lyrics_finetune_roma_alignedlyrics
+
+
+prior_1b_lyrics_addVocab = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    restore_prior=REMOTE_PREFIX + 'jukebox/models/1b_lyrics/prior_level_2.pth.tar',
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+    y_bins=(604, 7898),
+    t_bins=64,
+    max_bow_genre_size=1,
+    n_vocab=145,
+)
+
+HPARAMS_REGISTRY["prior_1b_lyrics_addVocab"] = prior_1b_lyrics_addVocab
 # ------------------------------------------------------------------------------------
 
 
