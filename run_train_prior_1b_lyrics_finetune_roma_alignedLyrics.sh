@@ -1,6 +1,6 @@
 #!/bin/bash
 mpiexec -n 8 python jukebox/train.py \
---hps=vqvae,prior_1b_lyrics,all_fp16,cpu_ema \
+--hps=vqvae,prior_1b_lyrics_finetune_roma_alignedlyrics,all_fp16,cpu_ema \
 --name=prior_1b_lyrics_finetune_roma_alignedLyrics \
 --sample_length=786432 \
 --bs=1 \
@@ -16,5 +16,6 @@ mpiexec -n 8 python jukebox/train.py \
 --weight_decay=0.01 \
 --save_iters=1000 \
 --epochs=100 \
+--curr_epoch=0 \
 --jp_lyrics=False \
 --v3_ftune=True
