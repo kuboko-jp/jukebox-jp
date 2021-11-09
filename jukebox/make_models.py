@@ -77,8 +77,12 @@ def restore_model(hps, model, checkpoint_path):
         # ----------Initialize Tnesor----------
         if (model.__class__.__module__ == 'jukebox.prior.prior') & (hps.jp_full_tokens):
             print(f"Initialize weights of prior.x_emb.weight and prior.x_out.weight to zeros(2207, 2048).")
-            checkpoint['model']['prior.x_emb.weight'] = t.randn(2207, 2048)
-            checkpoint['model']['prior.x_out.weight'] = t.randn(2207, 2048)
+            print('Before : ', checkpoint['model']['prior.x_emb.weight'].mean(), \
+                  checkpoint['model']['prior.x_emb.weight'].min(), checkpoint['model']['prior.x_emb.weight'].max())
+            checkpoint['model']['prior.x_emb.weight'] = t.nn.init.xavier_uniform_(t.empty(2207, 2048), gain=t.nn.init.calculate_gain('relu'))
+            checkpoint['model']['prior.x_out.weight'] = t.nn.init.xavier_uniform_(t.empty(2207, 2048), gain=t.nn.init.calculate_gain('relu'))
+            print('After : ', checkpoint['model']['prior.x_emb.weight'].mean(), \
+                  checkpoint['model']['prior.x_emb.weight'].min(), checkpoint['model']['prior.x_emb.weight'].max())
         # ------------------------------------
 
         model.load_state_dict(checkpoint['model'])
