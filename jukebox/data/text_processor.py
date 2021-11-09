@@ -2,10 +2,15 @@ import re
 from unidecode import unidecode
 
 class TextProcessor():
-    def __init__(self, v3=False, jp=False):
+    def __init__(self, v3=False, jp=False, jpfull=False):
         if v3:
-            if jp:
-                print("Use JP tokens.")
+            if jpfull:
+                print("Use en, jp, sy tokens.")
+                jp_vocab = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉゃゅょっ"
+                vocab = f'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-\'\"()[] \t\n{jp_vocab}'
+                not_vocab = re.compile(f'[^A-Za-z0-9.,:;!?\-\'\"()\[\] \t\n{jp_vocab}]+')
+            elif jp:
+                print("Use jp tokens.")
                 jp_vocab = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉゃゅょっ"
                 vocab = f'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 \n{jp_vocab}'
                 not_vocab = re.compile(f'[^{vocab}]+')

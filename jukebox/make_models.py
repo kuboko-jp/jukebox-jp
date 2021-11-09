@@ -74,13 +74,12 @@ def restore_model(hps, model, checkpoint_path):
         #         print(k, "Checkpoint:", checkpoint_hps.get(k, None), "Ours:", hps.get(k, None))
         checkpoint['model'] = {k[7:] if k[:7] == 'module.' else k: v for k, v in checkpoint['model'].items()}
 
-
-        # ----------Tnesorを一部初期化----------
-        if model.__class__.__module__ == 'jukebox.prior.prior':
-            checkpoint['model']['prior.x_emb.weight'] = t.zeros(2193, 2048)
-            checkpoint['model']['prior.x_out.weight'] = t.zeros(2193, 2048)
+        # ----------Initialize Tnesor----------
+        if (model.__class__.__module__ == 'jukebox.prior.prior') & (hps.jp_full_tokens):
+            print(f"Initialize weights of prior.x_emb.weight and prior.x_out.weight to zeros(2207, 2048).")
+            checkpoint['model']['prior.x_emb.weight'] = t.randn(2207, 2048)
+            checkpoint['model']['prior.x_out.weight'] = t.randn(2207, 2048)
         # ------------------------------------
-
 
         model.load_state_dict(checkpoint['model'])
         if 'step' in checkpoint: model.step = checkpoint['step']
@@ -195,6 +194,7 @@ def make_prior(hps, vqvae, device='cuda'):
                         single_enc_dec=hps.single_enc_dec,
                         v3_ftune=hps.v3_ftune,
                         jp_lyrics=hps.jp_lyrics,
+                        jp_full_tokens=hps.jp_full_tokens,
                         )
 
     prior.alignment_head = hps.get('alignment_head', None)

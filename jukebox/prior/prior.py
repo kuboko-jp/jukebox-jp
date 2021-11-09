@@ -38,11 +38,12 @@ class SimplePrior(nn.Module):
     def __init__(self, z_shapes, l_bins, encoder, decoder, level,
                  downs_t, strides_t, labels, prior_kwargs, x_cond_kwargs, y_cond_kwargs,
                  prime_kwargs, copy_input, labels_v3=False,
-                 merged_decoder=False, single_enc_dec=False, v3_ftune=False, jp_lyrics=False):
+                 merged_decoder=False, single_enc_dec=False, v3_ftune=False, jp_lyrics=False, jp_full_tokens=False):
         super().__init__()
 
         self.jp_lyrics = jp_lyrics
         self.v3_ftune = v3_ftune
+        self.jp_full_tokens = jp_full_tokens
         
         self.use_tokens = prime_kwargs.pop('use_tokens')
         self.n_tokens = prime_kwargs.pop('n_tokens')
@@ -143,7 +144,7 @@ class SimplePrior(nn.Module):
         self.sample_length = self.n_ctx*self.raw_to_tokens
         if labels:
             self.labels_v3 = labels_v3
-            self.labeller = Labeller(self.y_emb.max_bow_genre_size, self.n_tokens, self.sample_length, v3=self.labels_v3, v3_ftune=self.v3_ftune, jp=self.jp_lyrics)
+            self.labeller = Labeller(self.y_emb.max_bow_genre_size, self.n_tokens, self.sample_length, v3=self.labels_v3, v3_ftune=self.v3_ftune, jp=self.jp_lyrics, jpfull=self.jp_full_tokens)
         else:
             self.labeller = EmptyLabeller()
 

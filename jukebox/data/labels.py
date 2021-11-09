@@ -39,10 +39,10 @@ class EmptyLabeller():
         return dict(y=ys, info=infos)
 
 class Labeller():
-    def __init__(self, max_genre_words, n_tokens, sample_length, v3=False, v3_ftune=False, jp=False):
+    def __init__(self, max_genre_words, n_tokens, sample_length, v3=False, v3_ftune=False, jp=False, jpfull=False):
         print(f"!!!JP_lyrics : {jp} !!!")
         self.ag_processor = ArtistGenreProcessor(v3, v3_ftune, jp)
-        self.text_processor = TextProcessor(v3, jp)
+        self.text_processor = TextProcessor(v3, jp, jpfull)
         self.n_tokens = n_tokens
         self.max_genre_words = max_genre_words
         self.sample_length = sample_length

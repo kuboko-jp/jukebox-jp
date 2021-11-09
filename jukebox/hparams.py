@@ -318,9 +318,11 @@ prior_1b_lyrics_addVocab = Hyperparams(
     y_bins=(604, 7898),
     t_bins=64,
     max_bow_genre_size=1,
-    n_vocab=145,
+    n_vocab=159,  # English + Symbol + Japanese(Hiragana)
+    jp_lyrics=False,
+    v3_ftune=True,
+    jp_full_tokens=True,
 )
-
 HPARAMS_REGISTRY["prior_1b_lyrics_addVocab"] = prior_1b_lyrics_addVocab
 # ------------------------------------------------------------------------------------
 
@@ -651,6 +653,7 @@ DEFAULTS["sample"] = Hyperparams(
     total_sample_length_in_seconds=240,
     jp_lyrics=False,
     v3_ftune=False,
+    jp_full_tokens=False,
 )
 
 DEFAULTS["prime"] = Hyperparams(
@@ -737,6 +740,7 @@ DEFAULTS["train_test_eval"] = Hyperparams(
     exit_train=1e10,
     jp_lyrics=False,
     v3_ftune=False,
+    jp_full_tokens=False,
 )
 
 DEFAULTS["audio"] = Hyperparams(
