@@ -17,5 +17,5 @@ mpiexec -n 8 python jukebox/train.py \
 --save_iters=1000 \
 --epochs=100 \
 --jp_lyrics=True \
---v3_ftune=False \
+--v3_ftune=True \
 --jp_full_tokens=True
