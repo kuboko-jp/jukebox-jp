@@ -1,7 +1,7 @@
 #!/bin/bash
 mpiexec -n 1 python jukebox/sample.py \
 --model=1b_lyrics_finetune_roma_11708 \
---name=1b_lyrics_finetune_roma_11708_epoch020_enjplyrics \
+--name=1b_lyrics_finetune_roma_11708_epoch010_enjplyrics_lyric1560 \
 --levels=3 \
 --sample_length_in_seconds=90 \
 --total_sample_length_in_seconds=180 \
