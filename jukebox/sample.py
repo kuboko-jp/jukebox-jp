@@ -180,7 +180,7 @@ def load_codes(codes_file, duration, priors, hps):
     return zs
 
 # Generate and save samples, alignment, and webpage for visualization.
-def save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp):
+def save_samples(model, device, hps, sample_hps, sample_base_dir):
     print(hps)
     from jukebox.lyricdict import poems, gpt_2_lyrics
     vqvae, priors = make_model(model, device, hps)
@@ -195,16 +195,26 @@ def save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp):
     # For the 5b/5b_lyrics model and the upsamplers, labeller will look up artist and genres in v2 set. (after lowercasing, removing non-alphanumerics and collapsing whitespaces to _).
     # For the 1b_lyrics top level, labeller will look up artist and genres in v3 set (after lowercasing).
 
-
-    metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=input_new_lyric, base_dir=base_dir, jp=jp)
-    #pprint(metas)
-        
+    metas = input_meta(offset=offset, total_length=total_length, input_new_lyric=True,
+                        base_dir=sample_base_dir, v3_ftune=hps.v3_ftune, jp=hps.jp_lyrics)
+    pprint(metas)
+    """
+    metas = [dict(artist = "mr_children",
+                genre = "j-pop",
+                lyrics = jp['hanabi'],
+                total_length=total_length,
+                offset=offset,
+                )
+            ]
+    """
 
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
 
     labels = [prior.labeller.get_batch_labels(metas, 'cuda') for prior in priors]
+    print(labels[2]['y'][0])
+    print(labels[2]['info'][0]['full_tokens'])
     for label in labels:
         assert label['y'].shape[0] == hps.n_samples
 
@@ -252,16 +262,15 @@ def save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp):
         raise ValueError(f'Unknown sample mode {sample_hps.mode}.')
 
 
-def run(model, mode='ancestral', codes_file=None, audio_file=None, prompt_length_in_seconds=None, port=29500, 
-        input_new_lyric=False, base_dir='/workspace/dataset/wav_dataset_005/', jp=False, **kwargs):
-    print(f"input_new_lyric:{input_new_lyric}  /  base_dir:{base_dir}  /  jp:{jp}")
+def run(model, mode='ancestral', codes_file=None, audio_file=None, prompt_length_in_seconds=None, port=29500, sample_base_dir='/workspace/dataset/wav_dataset_006/', **kwargs):
+
     from jukebox.utils.dist_utils import setup_dist_from_mpi
     rank, local_rank, device = setup_dist_from_mpi(port=port)
     hps = Hyperparams(**kwargs)
     sample_hps = Hyperparams(dict(mode=mode, codes_file=codes_file, audio_file=audio_file, prompt_length_in_seconds=prompt_length_in_seconds))
 
     with t.no_grad():
-        save_samples(model, device, hps, sample_hps, input_new_lyric, base_dir, jp)
+        save_samples(model, device, hps, sample_hps, sample_base_dir)
 
 if __name__ == '__main__':
     fire.Fire(run)

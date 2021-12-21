@@ -21,6 +21,7 @@ class FilesAudioDataset(Dataset):
         assert hps.sample_length / hps.sr < self.min_duration, f'Sample length {hps.sample_length} per sr {hps.sr} ({hps.sample_length / hps.sr:.2f}) should be shorter than min duration {self.min_duration}'
         self.aug_shift = hps.aug_shift
         self.labels = hps.labels
+        self.v3_ftune = hps.v3_ftune
         self.init_dataset(hps)
 
     def filter(self, files, durations):
@@ -47,7 +48,7 @@ class FilesAudioDataset(Dataset):
         self.filter(files, durations)
 
         if self.labels:
-            self.labeller = Labeller(hps.max_bow_genre_size, hps.n_tokens, self.sample_length, v3=hps.labels_v3, jp=hps.jp_lyrics)
+            self.labeller = Labeller(hps.max_bow_genre_size, hps.n_tokens, self.sample_length, v3=hps.labels_v3, v3_ftune=hps.v3_ftune, jp=hps.jp_lyrics, jpfull=hps.jp_full_tokens)
 
     def get_index_offset(self, item):
         # For a given dataset item and shift, return song index and offset within song
@@ -92,7 +93,10 @@ class FilesAudioDataset(Dataset):
         search_idx = df_meta.loc[df_meta.file_name==title_name].index[0]
         artist = df_meta.loc[search_idx, 'artist_alphabet_name']
         # genre
-        genre = df_meta.loc[search_idx, 'genre']
+        if self.v3_ftune:
+            genre = 'j-pop'
+        else:
+            genre = df_meta.loc[search_idx, 'genre']
         # lyrics
         lyric_dataset_path = os.path.join("dataset/wav_dataset_006/aligned_lyric_csv_newline", f"{title_name}.csv")
         lyrics_df = pd.read_csv(lyric_dataset_path, encoding='utf-8')
@@ -104,7 +108,7 @@ class FilesAudioDataset(Dataset):
         assert data.shape == (self.channels, self.sample_length), f'Expected {(self.channels, self.sample_length)}, got {data.shape}'
         if self.labels:
             artist, genre, lyrics = self.get_metadata(filename, test)
-            labels = self.labeller.get_label(artist, genre, lyrics, total_length, offset, sr=sr)
+            labels = self.labeller.get_label_train(artist, genre, lyrics, total_length, offset, sr=sr)
             return data.T, labels['y']
         else:
             return data.T

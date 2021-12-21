@@ -23,6 +23,8 @@ MODELS = {
     '1b_lyrics_jp_35': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
     '1b_lyrics_jp_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_jp"),
     '1b_lyrics_finetune_roma_11708': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetune_roma_11708"),
+    '1b_lyrics_finetune_roma_alignedlyrics': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_finetune_roma_alignedlyrics"),
+    '1b_lyrics_finetune_roma_addVocab': ("vqvae", "upsampler_level_0", "upsampler_level_1", "prior_1b_lyrics_addVocab"),
     #'your_model': ("you_vqvae_here", "your_upsampler_here", ..., "you_top_level_prior_here")
 }
 
@@ -72,6 +74,18 @@ def restore_model(hps, model, checkpoint_path):
         #     if checkpoint_hps.get(k, None) != hps.get(k, None):
         #         print(k, "Checkpoint:", checkpoint_hps.get(k, None), "Ours:", hps.get(k, None))
         checkpoint['model'] = {k[7:] if k[:7] == 'module.' else k: v for k, v in checkpoint['model'].items()}
+
+        # ----------Initialize Tnesor----------
+        if (model.__class__.__module__ == 'jukebox.prior.prior') & (hps.jp_full_tokens):
+            print(f"Initialize weights of prior.x_emb.weight and prior.x_out.weight to zeros(2207, 2048).")
+            print('Before : ', checkpoint['model']['prior.x_emb.weight'].mean(), \
+                  checkpoint['model']['prior.x_emb.weight'].min(), checkpoint['model']['prior.x_emb.weight'].max())
+            checkpoint['model']['prior.x_emb.weight'] = t.nn.init.xavier_uniform_(t.empty(2207, 2048), gain=t.nn.init.calculate_gain('relu'))
+            checkpoint['model']['prior.x_out.weight'] = t.nn.init.xavier_uniform_(t.empty(2207, 2048), gain=t.nn.init.calculate_gain('relu'))
+            print('After : ', checkpoint['model']['prior.x_emb.weight'].mean(), \
+                  checkpoint['model']['prior.x_emb.weight'].min(), checkpoint['model']['prior.x_emb.weight'].max())
+        # ------------------------------------
+
         model.load_state_dict(checkpoint['model'])
         if 'step' in checkpoint: model.step = checkpoint['step']
 
@@ -183,7 +197,9 @@ def make_prior(hps, vqvae, device='cuda'):
                         labels_v3=hps.labels_v3,
                         merged_decoder=hps.merged_decoder,
                         single_enc_dec=hps.single_enc_dec,
+                        v3_ftune=hps.v3_ftune,
                         jp_lyrics=hps.jp_lyrics,
+                        jp_full_tokens=hps.jp_full_tokens,
                         )
 
     prior.alignment_head = hps.get('alignment_head', None)

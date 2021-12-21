@@ -257,13 +257,74 @@ prior_1b_lyrics_finetune_roma_11708 = Hyperparams(
     n_tokens=384,
     prime_loss_fraction=0.4,
     single_enc_dec=True,
-    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_50.pth.tar",
+    restore_prior="/workspace/logs/finetuned_11708_20210711/checkpoint_epoch_10.pth.tar",
     fp16_params=False,
     alignment_layer=63,
     alignment_head=0,
+    v3_ftune=True,
 )
 prior_1b_lyrics_finetune_roma_11708.update(labels_v3)
 HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_11708"] = prior_1b_lyrics_finetune_roma_11708
+
+prior_1b_lyrics_finetune_roma_alignedlyrics = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    restore_prior="/workspace/logs/prior_1b_lyrics_finetune_roma_alignedLyrics/checkpoint_epoch_010.pth.tar",
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+    jp_lyrics=False,
+    v3_ftune=True,
+)
+prior_1b_lyrics_finetune_roma_alignedlyrics.update(labels_v3)
+HPARAMS_REGISTRY["prior_1b_lyrics_finetune_roma_alignedlyrics"] = prior_1b_lyrics_finetune_roma_alignedlyrics
+
+
+prior_1b_lyrics_addVocab = Hyperparams(
+    level=2,
+    n_ctx=6144,
+    prior_width=2048,
+    prior_depth=72,
+    heads=2,
+    attn_order=12,
+    blocks=64,
+    init_scale=0.2,
+    c_res=1,
+    labels_v3=True,
+    min_duration=17.84,
+    max_duration=600.0,
+    use_tokens=True,
+    n_tokens=384,
+    prime_loss_fraction=0.4,
+    single_enc_dec=True,
+    #restore_prior=REMOTE_PREFIX + 'jukebox/models/1b_lyrics/prior_level_2.pth.tar',
+    restore_prior="/workspace/logs/prior_1b_lyrics_finetune_roma_addVocab/checkpoint_epoch_010.pth.tar",
+    fp16_params=False,
+    alignment_layer=63,
+    alignment_head=0,
+    y_bins=(604, 7898),
+    t_bins=64,
+    max_bow_genre_size=1,
+    n_vocab=159,  # English + Symbol + Japanese(Hiragana)
+    jp_lyrics=True,
+    v3_ftune=True,
+    jp_full_tokens=True,
+)
+HPARAMS_REGISTRY["prior_1b_lyrics_addVocab"] = prior_1b_lyrics_addVocab
 # ------------------------------------------------------------------------------------
 
 
@@ -377,8 +438,7 @@ prior_1b_jp = Hyperparams(
     min_duration=17.84,
     max_duration=600.0,
     use_tokens=True,
-    n_tokens=384,
-    #n_tokens=128,  # (n_tokens + n_ctx) % blocks must 0
+    n_tokens=384,  # (n_tokens + n_ctx) % blocks must 0
     prime_loss_fraction=0.4,
     single_enc_dec=True,
     fp16_params=False,
@@ -387,9 +447,9 @@ prior_1b_jp = Hyperparams(
     y_bins=(4, 146),  # (genres_n, artists_n)
     t_bins=64,
     max_bow_genre_size=1,
-    n_vocab=160,  # Default:160
-    jp_lyrics=True,  # J-POPように追加(True:tokenにひらがなを追加)
-    restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics/checkpoint_epoch_010.pth.tar',
+    n_vocab=145,
+    jp_lyrics=True,  # Added for J-Pop(True:Add hiragana to token)
+    # restore_prior='/workspace/logs/pretrained_vqvae_prior_1b_jp_11708_alignedLyrics_vocab145_longTokens_fineTune30epochAligned/checkpoint_epoch_041.pth.tar',
 )
 HPARAMS_REGISTRY["prior_1b_jp"] = prior_1b_jp
 # ------------------------------------------------------------------------------------------------
@@ -592,6 +652,9 @@ DEFAULTS["sample"] = Hyperparams(
     temp_rest=0.99,
     sample_length_in_seconds=24,
     total_sample_length_in_seconds=240,
+    jp_lyrics=False,
+    v3_ftune=False,
+    jp_full_tokens=False,
 )
 
 DEFAULTS["prime"] = Hyperparams(
@@ -677,6 +740,8 @@ DEFAULTS["train_test_eval"] = Hyperparams(
     break_test=1e10,
     exit_train=1e10,
     jp_lyrics=False,
+    v3_ftune=False,
+    jp_full_tokens=False,
 )
 
 DEFAULTS["audio"] = Hyperparams(
