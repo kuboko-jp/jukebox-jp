@@ -56,3 +56,4 @@ if __name__ == '__main__':
     input_metas = input_meta(offset=0, total_length=240, input_new_lyric=True, 
                base_dir='/workspace/dataset/wav_dataset_006/', jp=False)
     pprint(input_metas)
+

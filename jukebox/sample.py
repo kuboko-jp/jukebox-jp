@@ -182,7 +182,7 @@ def load_codes(codes_file, duration, priors, hps):
 # Generate and save samples, alignment, and webpage for visualization.
 def save_samples(model, device, hps, sample_hps, sample_base_dir):
     print(hps)
-    from jukebox.lyricdict import poems, gpt_2_lyrics, jp  # jpを追加
+    from jukebox.lyricdict import poems, gpt_2_lyrics
     vqvae, priors = make_model(model, device, hps)
 
     assert hps.sample_length//priors[-2].raw_to_tokens >= priors[-2].n_ctx, f"Upsampling needs atleast one ctx in get_z_conds. Please choose a longer sample length"
@@ -207,6 +207,7 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
                 )
             ]
     """
+
     while len(metas) < hps.n_samples:
         metas.extend(metas)
     metas = metas[:hps.n_samples]
@@ -218,7 +219,7 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
         assert label['y'].shape[0] == hps.n_samples
 
     lower_level_chunk_size = 32
-    lower_level_max_batch_size = 16
+    lower_level_max_batch_size = 32  # 16 -> 32
     # 下記を変更(2021/04/06)
     # if model == '1b_lyrics':
     if "1b_lyrics" in model:  # "1b_lyrics"の文字列が含まれている場合:True / それ以外:False  (追加)
@@ -262,6 +263,7 @@ def save_samples(model, device, hps, sample_hps, sample_base_dir):
 
 
 def run(model, mode='ancestral', codes_file=None, audio_file=None, prompt_length_in_seconds=None, port=29500, sample_base_dir='/workspace/dataset/wav_dataset_006/', **kwargs):
+
     from jukebox.utils.dist_utils import setup_dist_from_mpi
     rank, local_rank, device = setup_dist_from_mpi(port=port)
     hps = Hyperparams(**kwargs)
