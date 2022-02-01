@@ -1,5 +1,5 @@
 #!/bin/bash
-mpiexec -n 8 python jukebox/train.py \
+mpiexec -n 1 python jukebox/train.py \
 --hps=vqvae,prior_1b_lyrics_finetune_roma_alignedlyrics,all_fp16,cpu_ema \
 --name=prior_1b_lyrics_finetune_roma_alignedLyrics \
 --sample_length=786432 \

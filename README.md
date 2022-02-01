@@ -1,5 +1,8 @@
 **Status:** Archive (code is provided as-is, no updates expected)
 
+# Jukebox with J-Pop
+J-Pop版Jukeboxは、[こちらのWiki](https://github.com/kuboko-jp/jukebox-jp/wiki)をご覧ください。
+
 # Jukebox
 Code for "Jukebox: A Generative Model for Music"
 
